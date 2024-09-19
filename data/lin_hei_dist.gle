@@ -1,0 +1,22 @@
+size 18 14
+
+amove 1 1
+begin graph
+	size 18 14
+	data "lin_hei_dist.txt" d1=c1,c2
+	title "Profile's Height Distribution (linear binning)" hei 0.6 dist 0.2
+	d1 line color red marker circle
+
+	let d10 = 1*x^-4 from 1 to 70
+	d10 line lwidth 0.04 color blue
+
+	xaxis log 
+	yaxis log
+
+	xlabels hei 0.7 dist 0.2
+	ylabels hei 0.7 dist 0.2  
+
+	xtitle "Profile's Height = h" hei 0.6 dist 0.35
+  	ytitle "P(h)" hei 0.6 dist 0.35 
+
+end graph

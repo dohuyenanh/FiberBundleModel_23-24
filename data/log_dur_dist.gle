@@ -1,0 +1,25 @@
+size 14 12
+
+amove 1 1
+begin graph
+	size 14 12
+	data "log_dur_dist.txt" d1=c1,c2
+	title "Distribution of Profile's Duration (logarithmic binning)" hei 0.5 dist 0.35
+	d1 line color red marker circle
+
+	let d10 = 40000000*x^-3.95 from 1 to 200
+    d10 line color blue 
+	
+	xaxis log
+	yaxis log
+
+	xlabels hei 0.7 dist 0.2 log n1 	
+  	ylabels hei 0.7 dist 0.2
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+  	xtitle "Profile's Duration = w" hei 0.7 dist 0.4
+  	ytitle "P(w)" hei 0.7 dist 0.4
+  	
+end graph

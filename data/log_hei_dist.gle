@@ -1,0 +1,25 @@
+size 14 12
+
+amove 1 1
+begin graph
+	size 14 12
+	data "log_hei_dist.txt" d1=c1,c2
+	title "Profile's Height Distribution (logarithmic binning)" hei 0.5 dist 0.35
+	d1 line color red marker circle
+
+	let d10 = 3000000*x^-4.0 from 1 to 100
+    d10 line color blue 
+	
+	xaxis log
+	yaxis log
+
+	xlabels hei 0.7 dist 0.2 log n1 	
+  	ylabels hei 0.7 dist 0.2
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+	xtitle "Profile's Height = h" hei 0.6 dist 0.35
+  	ytitle "P(h)" hei 0.6 dist 0.35 
+  	
+end graph

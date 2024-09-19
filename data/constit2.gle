@@ -1,0 +1,49 @@
+size 18 16
+
+!Suppose the probability density functions of epsilon_1 and epsilon_2 are both 
+!continuos uniform distribution, i.e. their PDF and CDF look like:
+!       f(epsilon_1) = 1/(2*de1)
+!       F(epsilon_1) = (epsilon - e1 + de1)/(2*de1)
+!       g(epsilon_2) = 1/(2*de2)
+!       G(epsilon_2) = (epsilon - e2 + de2)/(2*de2)
+
+!Average number of intact fibers:    1 - F(E*epsilon)
+!Average number of yielding fibers:  F(E*epsilon) * [1 - G(E*epsilon)]
+!Average number of broken fibers:    F(E*epsilon) * G(E*epsilon)
+
+!Known quantities:
+E = 1       !elastic modulus
+e1 = 0.3    !mean value of epsilon_1
+e2 = 0.6    !mean value of epsilon_2
+de1 = 0.05  !distance between epsilon_1 and the 2 ends
+de2 = 0.05  !distance between epsilon_2 and the 2 ends
+
+amove 1 1
+begin graph
+	size 18 16
+	title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
+
+    !intact region
+    let d1 = 1-(x-e1+de1)/(2*de1) from 0 to e1
+	d1 line color red key "intact"
+
+    !yielding region
+	let d2 = 1-(x-e2+de2)/(2*de2) from e1 to e2
+    d2 line color blue key "yielding"
+
+    !broken region
+    let d3 = 0 from e2 to 1
+    d3 line color green key "broken"
+
+    key pos bc compact offset 0 -1.5
+
+	xlabels hei 0.7 dist 0.2  	
+  	ylabels hei 0.7 dist 0.2
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+	xtitle "\epsilon" hei 0.6 dist 0.3
+  	ytitle "\sigma" hei 0.6 dist 0.3
+  	
+end graph

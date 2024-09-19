@@ -1,0 +1,36 @@
+size 18 16
+
+! read constit3.tex
+! lambda = 1
+
+a1 = 0.3
+a2 = 0.6
+a3 = 0.9
+
+amove 1 1
+begin graph
+	size 18 16
+	title "Constitutive Relation of Fibers with Plasticity (unbroken)" hei 0.5 dist 0.35
+
+    let d1 = a1*x-(1-a1)*(1-exp(-x)) from 0 to 1
+	d1 line color red key "\alpha = 0.3"
+
+    let d2 = a2*x-(1-a2)*(1-exp(-x)) from 0 to 1
+	d2 line color blue key "\alpha = 0.6"
+
+    let d3 = a3*x-(1-a3)*(1-exp(-x)) from 0 to 1
+	d3 line color green key "\alpha = 0.9"
+    ! Reminder: there must not be any spaces between operators and operands in GLE
+
+    key pos bc compact offset 0 -1.4
+
+	xlabels hei 0.7 dist 0.2  	
+  	ylabels hei 0.7 dist 0.2
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+	xtitle "\epsilon" hei 0.6 dist 0.3
+  	ytitle "\sigma" hei 0.6 dist 0.3
+  	
+end graph

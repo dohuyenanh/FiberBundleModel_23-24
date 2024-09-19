@@ -1,0 +1,51 @@
+size 14 12
+
+!read constit4.tex
+!Given:
+E = 1           !elastic modulus of intact fibers
+e_y = 0.3       !mean value of yielding thresholds
+e_b = 1.5       !mean value of broken thresholds
+de_y = 0.1     !radius of the uniform distribution of e_y
+de_b = 0.5     !radius of the uniform distribution of e_b
+a = 0.2         !ratio of the elastic modulus of yielding fibers to E
+
+!To make it easier to graph, introduce some markers at the borders between each 2 adjacent intervals:
+b1 = e_y - de_y     !start yielding
+b2 = e_y + de_y     !stop intact
+b3 = e_b - de_b     !start breaking
+b4 = e_b + de_b     !every fiber is broken
+
+amove 1 1
+begin graph
+    size 14 12
+    title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
+
+    let d1=E*x from 0 to b1
+    d1 line color red
+
+    let d2=E*x*(0.5-(x-e_y)/(2*de_y))+E/(2*de_y)*((1+a)/2*x^2-a*(e_y-de_y)*x-(1-a)/2*b1^2) from b1 to b2
+    d2 line color blue
+
+    let d3=E*((1-a)*e_y+a*x) from b2 to b3
+    d3 line color green
+
+    let d4=E*((1-a)*e_y+a*x)*(1-(x-b3)/(2*de_b)) from b3 to b4
+    d4 line color purple
+
+    let d5=0*x from b4 to 2.5
+    d5 line color orange
+
+    let d10=x from 0 to 3
+    d10 line color green lwidth 0.05 y2axis
+
+    xlabels hei 0.7 dist 0.2  	
+  	ylabels hei 0.7 dist 0.2
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+	xtitle "\epsilon" hei 0.6 dist 0.3
+  	ytitle "\sigma" hei 0.6 dist 0.3
+  	
+end graph
+

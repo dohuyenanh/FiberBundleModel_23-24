@@ -1,0 +1,22 @@
+size 18 16
+
+amove 1 1
+begin graph
+	size 18 16
+	data "lin_dur_dist.txt" d1=c1,c2
+	title "Distribution of Profile's Duration (linear binning)" hei 0.7 dist 0.3
+	d1 line color red
+
+	let d2=50000000*x^-3.5 from 1 to 100
+	d2 line lwidth 0.05 color blue
+
+	xaxis log
+	yaxis log
+
+	xlabels hei 0.7 dist 0.2
+  	ylabels hei 0.7 dist 0.2
+
+  	xtitle "Profile's Duration = w" hei 0.7 dist 0.4
+  	ytitle "P(w)" hei 0.7 dist 0.4
+	
+end graph

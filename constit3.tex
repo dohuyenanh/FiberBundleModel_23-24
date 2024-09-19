@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\usepackage{amsmath} % For math symbols and equations
+
+\begin{document}
+
+\title{Building a Constitutive Relation for Fiber Bundle Model with Plasticity (unbroken fibers)}
+\author{Anh H. Do}
+\date{July 4, 2024}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+Suppose after yielding point, the fiber starts yielding but never be broken. In yielding region, $E' = \alpha \cdot E$ 
+where E is elastic modulus and $\alpha$ is in [0, 1]
+Then we obtain the stress ($\sigma$) at a particular strain ($\varepsilon$) that is imposed on our bundle:
+\begin{equation}
+\sigma = E \cdot \varepsilon       
+~if~ \varepsilon < \varepsilon_1 ~(for ~intact ~fibers)
+\end{equation}
+\begin{equation}
+\sigma = E \cdot \varepsilon_1 + \alpha \cdot E \cdot (\varepsilon - \varepsilon_1)      
+~if~ \varepsilon >= \varepsilon_1 ~(for ~yielding ~fibers)
+\end{equation}
+
+Introduce $f(\varepsilon_1)$ as the probability density function of $\varepsilon_1$ then the probability of fibers whose $\varepsilon_1$ falls in $[\varepsilon_1, \varepsilon_1 + d\varepsilon_1]$ is: 
+\begin{equation}
+\int\limits_0^\varepsilon f(\varepsilon_1)d\varepsilon_1
+\end{equation}
+
+The cummulative distribution function:
+\begin{equation}
+F(\varepsilon_1) = \int\limits_0^{\varepsilon_1} f(\varepsilon_1')d\varepsilon_1'
+\end{equation}
+ 
+At an instant imposed strain $\varepsilon$ on the bundle, with N is the total number of fibers, the number of yielding fibers is:
+\begin{equation}
+    N \cdot F(\varepsilon) = N \cdot \int\limits_0^\varepsilon f(\varepsilon_1)d\varepsilon_1
+\end{equation}
+since $F(\varepsilon) = P(\varepsilon_1 < \varepsilon)$. So the number of intact fibers is: 
+\begin{equation}
+    N \cdot [1 - F(\varepsilon)]
+\end{equation}
+
+The force exerted by N fibers at an instant $\varepsilon$ is composed of forces by
+intact fibers and forces by yielding fibers, which is:
+\begin{equation}
+F = N \cdot [1 - F(\varepsilon)] \cdot (E \cdot \varepsilon) + \int\limits_0^\varepsilon N \cdot f(\varepsilon_1)d\varepsilon_1 \cdot [E \cdot \varepsilon_1 + \alpha \cdot E \cdot (\varepsilon - \varepsilon_1)]
+\end{equation}
+Divide by N, we obtain the stress-strain relation:
+\begin{equation}
+\sigma = [1 - F(\varepsilon)] \cdot E \cdot \varepsilon + \int\limits_0^\varepsilon f(\varepsilon_1)d\varepsilon_1 \cdot [E \cdot \varepsilon_1 + \alpha \cdot E \cdot (\varepsilon - \varepsilon_1)]
+\end{equation}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Mathematical Formulation}
+
+Suppose this is Weibull distribution, i.e. its CDF is:
+\begin{equation}
+F(x) = 1 - e^{-(\frac{x}{\lambda})^m} ~~~~ x \ge 0
+\end{equation}
+and PDF is:
+\begin{equation}
+f(x) = \frac{m}{\lambda} \cdot \bigg(\frac{x}{\lambda}\bigg)^{m-1} \cdot e^{-(\frac{x}{\lambda})^m} ~~~~ x \ge 0    
+\end{equation}
+\begin{equation}
+\Rightarrow f(x) = \frac{1}{\lambda} \cdot e^{-\frac{x}{\lambda}} ~~~~ x \ge 0 ~\&~ m = 1
+\end{equation}
+
+Then we obtain the stress-strain relation where $E = 1$ and $m = 1$:
+\begin{equation}
+\sigma = [1 - (1 - e^{-\frac{\varepsilon}{\lambda}})] \cdot \varepsilon + \int\limits_0^\varepsilon \frac{1}{\lambda} \cdot e^{-\frac{\varepsilon_1}{\lambda}} d\varepsilon_1 \cdot [\varepsilon_1 + \alpha \cdot (\varepsilon - \varepsilon_1)]
+\end{equation}
+\begin{equation}
+    \Leftrightarrow \sigma = e^{-\frac{\varepsilon}{\lambda}} \cdot \varepsilon + \bigg[[\varepsilon_1 + \alpha \cdot (\varepsilon - \varepsilon_1)] \cdot (- e^{-\frac{\varepsilon_1}{\lambda}})\bigg]_0^\varepsilon - \int\limits_0^\varepsilon - e^{-\frac{\varepsilon_1}{\lambda}} \cdot (1 - \alpha) d\varepsilon_1
+\end{equation}
+\begin{equation}
+    \Leftrightarrow \sigma = e^{-\frac{\varepsilon}{\lambda}} \cdot \varepsilon + \bigg[[\varepsilon_1 + \alpha \cdot (\varepsilon - \varepsilon_1)] \cdot (- e^{-\frac{\varepsilon_1}{\lambda}})\bigg]_0^\varepsilon - \bigg[\lambda \cdot (1 - \alpha) \cdot e^{-\frac{\varepsilon_1}{\lambda}}\bigg]_0^\varepsilon   
+\end{equation}
+\begin{equation}
+    \Leftrightarrow \sigma = e^{-\frac{\varepsilon}{\lambda}} \cdot \varepsilon + (- \varepsilon \cdot e^{-\frac{\varepsilon}{\lambda}} + \alpha \cdot \varepsilon) - \lambda \cdot (1 - \alpha) \cdot (e^{-\frac{\varepsilon}{\lambda}} - 1)
+\end{equation}
+\begin{equation}
+    \Leftrightarrow \sigma = \alpha \cdot \varepsilon - \lambda \cdot (1 - \alpha) \cdot (1 - e^{-\frac{\varepsilon}{\lambda}})
+\end{equation}
+
+\section{Results}
+Using GLE, we can obtain the constitutive relation for fiber bundle model with plasticity (unbroken fibers): constit3.gle
+
+\end{document}

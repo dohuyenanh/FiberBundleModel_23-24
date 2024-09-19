@@ -1,0 +1,22 @@
+size 14 12
+
+amove 1 1
+begin graph
+  size 14 12
+  title "Avalanche Distribution (linear binning)" hei 0.6 dist 0.2
+  data "lin_aval_size.txt" d1=c1, c2
+  d1 line color red !marker square
+
+  !let d2 = 1e7*x^-2.5 from 1 to 1000
+  !d2 line lwidth 0.04
+
+  xaxis log
+  yaxis log
+
+  xlabels hei 0.6 dist 0.15
+  ylabels hei 0.6 dist 0.15
+
+  xtitle "Avalanche's Size = \Delta" hei 0.6 dist 0.4
+  ytitle "P(\Delta)" hei 0.6 dist 0.4
+
+end graph

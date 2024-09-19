@@ -1,0 +1,27 @@
+size 14 12
+
+amove 1 1
+begin graph
+	size 14 12
+	data "dur_vs_avg_aval.txt" d1=c1,c2
+	title "Average of Avalanches Corresponding to Duration" hei 0.5 dist 0.35
+	d1 line color red marker circle
+
+	let d10 = 0.4*x^1.75 from 1 to 150
+    d10 line color blue lwidth 0.05 key "y = 0.4 \cdot x^{1.75}"
+
+    key pos bc compact offset 0 -2
+
+    xaxis log
+    yaxis log
+
+	xlabels hei 0.7 dist 0.2 log n1 	
+  	ylabels hei 0.7 dist 0.2
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+	xtitle "Duration = w" hei 0.6 dist 0.35
+  	ytitle "Average of Avalanches = <\Delta>" hei 0.6 dist 0.2
+  	
+end graph

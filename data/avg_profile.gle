@@ -1,0 +1,50 @@
+size 18 14
+
+a=0.05
+w5=17
+w4=15
+w3=13
+w2=11
+w1=9
+
+g=1.03
+
+amove 1 1
+begin graph
+	size 18 14
+	title "Master Plot" hei 0.7 dist 0.3
+	data "average_profile.txt" d5=c1,c2
+	let d15 = x/w5, (d5-1)/w5^g
+	data "average_profile.txt" d4=c3,c4
+	let d14 = x/w4, (d4-1)/w4^g
+	data "average_profile.txt" d3=c5,c6
+	let d13 = x/w3, (d3-1)/w3^g
+	data "average_profile.txt" d2=c7,c8
+	let d12 = x/w2, (d2-1)/w2^g
+	data "average_profile.txt" d1=c9,c10
+	let d11 = x/w1, (d1-1)/w1^g
+
+!	let d10=a*x*(17-x)+1 from 0 to 17
+!	d10 line lwidth 0.05
+
+	key pos bc compact offset 0 -2 
+
+	d15 line color red marker circle key "W5"
+	key separator
+	d14 line color green marker circle key "W4"
+	key separator
+	d13 line color blue marker circle key "W3"
+	key separator
+	d12 line color violet marker circle key "W2"
+	key separator
+	d11 line color orange marker circle key "W1"
+	
+	xlabels hei 0.7 dist 0.2
+  	ylabels hei 0.7 dist 0.2
+
+  	xtitle "{u}/{w}" hei 0.7 dist 0.35
+  	ytitle "{<\Delta s> - 1}/{w^{\gamma}}" hei 0.7 dist 0.35
+
+	xaxis max 1.1
+
+end graph

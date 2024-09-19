@@ -1,0 +1,25 @@
+size 14 12
+
+amove 1 1
+begin graph
+  size 14 12
+  title "Mean of the maximum likelihood estimate for the scaling parameter" hei 0.4 dist 0.3
+  data "alpha(x_min).txt" d1=c1, c2
+  d1 line color red marker circle
+
+  let d2 = 0.999999 from 1 to 125  
+  d2 line color blue lwidth 0.04
+
+  xaxis log
+  !yaxis log
+
+  xlabels hei 0.6 dist 0.15 !log n1
+  ylabels hei 0.4 dist 0.15
+
+  xsticks length 0.2
+  xaxis max 200
+
+  xtitle "x_{min}" hei 0.6 dist 0.4
+  ytitle "\alpha" hei 0.6 dist 0.4
+
+end graph

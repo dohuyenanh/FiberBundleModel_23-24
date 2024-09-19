@@ -1,0 +1,16 @@
+size 18 14
+
+amove 1 1
+begin graph
+	size 18 14
+	title "Catastrophic Avalanche Distribution" hei 0.7 dist 0.25
+	data "dist_cat_aval.txt" d1=c1,c2
+	d1 line color red
+
+	xlabels hei 0.7 dist 0.2
+	ylabels hei 0.7 dist 0.2
+
+	xtitle "Catastrophic Avalanche's Size = x" hei 0.7 dist 0.4
+  	ytitle "Frequency = P(x)" hei 0.7 dist 0.4
+	
+end graph
