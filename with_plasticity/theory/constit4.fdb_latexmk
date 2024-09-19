@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1726750618 "constit4.tex" "constit4.pdf" "constit4" 1726750618 2
+["pdflatex"] 1726762437 "constit4.tex" "constit4.pdf" "constit4" 1726762437 0
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -47,8 +47,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1694459739 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1694459736 7883456 620fd3220de7df1787f05599ba32d84c ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "constit4.aux" 1726750618 1537 9cd4741308e1e02ea594a65680c2a241 "pdflatex"
-  "constit4.tex" 1726750618 8929 6d5424c24935e7c64b63f3a19093df4a ""
+  "constit4.aux" 1726762437 1537 9cd4741308e1e02ea594a65680c2a241 "pdflatex"
+  "constit4.tex" 1726762436 8977 26ea1ca8499075d76aa906e6bfac7071 ""
   (generated)
   "constit4.aux"
   "constit4.log"
