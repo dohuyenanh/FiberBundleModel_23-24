@@ -1,11 +1,11 @@
-size 14 12
+size 18 12
 
 !read constit4.tex
 !Given:
 E = 1           !elastic modulus of intact fibers
-e_y = 0.3       !mean value of yielding thresholds
-e_b = 1.5       !mean value of broken thresholds
-de_y = 0.1     !radius of the uniform distribution of e_y
+e_y = 0.5       !mean value of yielding thresholds
+e_b = 1.7       !mean value of broken thresholds
+de_y = 0.3     !radius of the uniform distribution of e_y
 de_b = 0.5     !radius of the uniform distribution of e_b
 a = 0.2         !ratio of the elastic modulus of yielding fibers to E
 
@@ -14,38 +14,62 @@ b1 = e_y - de_y     !start yielding
 b2 = e_y + de_y     !stop intact
 b3 = e_b - de_b     !start breaking
 b4 = e_b + de_b     !every fiber is broken
+b5 = 2.5
 
-amove 1 1
+amove 0 1
 begin graph
-    size 14 12
+    size 18 12
     title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
 
     let d1=E*x from 0 to b1
-    d1 line color red
+    d1 line color rgb(1.0,0.55,0.0) lwidth 0.04  ! Deep Orange
 
     let d2=E*x*(0.5-(x-e_y)/(2*de_y))+E/(2*de_y)*((1+a)/2*x^2-a*(e_y-de_y)*x-(1-a)/2*b1^2) from b1 to b2
-    d2 line color blue
+    d2 line color rgb(1.0,0.9,0.4) lwidth 0.04  ! Soft Yellow
 
     let d3=E*((1-a)*e_y+a*x) from b2 to b3
-    d3 line color green
+    d3 line color rgb(0.4,0.8,0.9) lwidth 0.04  ! Light Cyan
 
     let d4=E*((1-a)*e_y+a*x)*(1-(x-b3)/(2*de_b)) from b3 to b4
-    d4 line color purple
+    d4 line color rgb(0.6,0.9,0.6) lwidth 0.04  ! Light Green
 
-    let d5=0*x from b4 to 2.5
-    d5 line color orange
+    let d5=0*x from b4 to b5
+    d5 line color rgb(0.6,0.4,0.9) lwidth 0.04  ! Medium Purple
 
-    let d10=x from 0 to 3
-    d10 line color green lwidth 0.05 y2axis
+    let d10=0*x from 0 to b1
+    d10 line color rgb(0.0,0.3,0.7) lwidth 0.05 y2axis lstyle 3 key "P_b(\varepsilon)" ! Soft Teal
 
-    xlabels hei 0.7 dist 0.2  	
-  	ylabels hei 0.7 dist 0.2
+    let d20=0*x from 0 to b3
+    d20 line color rgb(1.0,0.65,0.0) lwidth 0.05 y2axis lstyle 3 key "P_y(\varepsilon)"  ! Lavender
+
+    let d11=(x-b1)/(2*de_y) from b1 to b2
+    d11 line color rgb(0.0,0.3,0.7) lwidth 0.05 y2axis lstyle 3
+
+    let d21=(x-b3)/(2*de_b) from b3 to b4
+    d21 line color rgb(1.0,0.65,0.0) lwidth 0.05 y2axis lstyle 3
+
+    let d12=x^0 from b2 to b5
+    d12 line color rgb(0.0,0.3,0.7) lwidth 0.05 y2axis lstyle 3
+
+    let d22=x^0 from b4 to b5
+    d22 line color rgb(1.0,0.65,0.0) lwidth 0.05 y2axis lstyle 3
+
+    xlabels hei 0.6 dist 0.3  	
+  	ylabels hei 0.6 dist 0.2
 
     xsticks length 0.2
     ysticks length 0.2
 
-	xtitle "\epsilon" hei 0.6 dist 0.3
-  	ytitle "\sigma" hei 0.6 dist 0.3
+	  xtitle "\epsilon" hei 0.6 dist 0.3
+  	ytitle "\sigma" hei 0.6 dist 0.3 
+
+    y2title "P(\varepsilon)" 
+
+    y2axis max 1.1
+    yaxis min 0
+    xaxis max b5
   	
+    key pos bc compact offset 0 -1.5 
+
 end graph
 
