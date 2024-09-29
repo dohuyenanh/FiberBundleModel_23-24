@@ -5,6 +5,7 @@
 \usepackage{indentfirst} % For indenting the first paragraph of a section
 \renewcommand{\thesection}{\Roman{section}.} % Section format
 \renewcommand{\thesubsection}{\arabic{subsection}.} % Subsection format
+\usepackage{graphicx} % For including images
 
 % Define new commands for frequently used expressions
 \newcommand{\eps}{\varepsilon}
@@ -173,5 +174,21 @@ Now, we have the stress-strain function for each interval. We can combine them t
 \end{equation*}
 
 Using GLE, we can obtain the constitutive relation for fiber bundle model with plasticity (breakable fibers): constit4.gle
+
+% \begin{figure}
+%     \begin{center}
+%     \epsfig{file=figure1.eps,bbllx=0,bblly=0,bburx=700,bbury=400, width=8.5cm}
+%     \caption{The degree of misalignment of fibers is controlled by the distance $x$ between their two en
+%     ds along the loading plates.}    
+%     \label{fig:demo}
+%     \end{center}
+% \end{figure}
+
+\begin{figure}[h] 
+    \centering\includegraphics[width=3.4in]{constit4.eps}
+    \caption{\label{fig:dust} Inset: mass fraction of non-shattered fragments $S=1-s$ in the final state of the breakup process as a function of strain rate $\dot{\varepsilon}$ for several ring thicknesses $\Delta R/R$. Main panel: Rescaling the curves of the inset by an appropriate power $\nu$ of the ring thickness $\Delta R$, the curves of different $\Delta R$ can be collapsed on a master curve. The black continuous line represents a fit with Eq.\ (\ref{eq:scaling_shatt}). 
+    %Note the semi-logarithmic scale on the vertical axis.
+    }
+\end{figure}
 
 \end{document}

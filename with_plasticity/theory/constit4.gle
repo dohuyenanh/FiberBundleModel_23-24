@@ -21,55 +21,76 @@ begin graph
     size 18 12
     title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
 
-    let d1=E*x from 0 to b1
-    d1 line color rgb(1.0,0.55,0.0) lwidth 0.04  ! Deep Orange
+    data "../simulation/data/constit.txt" d30=c1,c2
+    d30 marker circle msize 0.3 color black 
 
-    let d2=E*x*(0.5-(x-e_y)/(2*de_y))+E/(2*de_y)*((1+a)/2*x^2-a*(e_y-de_y)*x-(1-a)/2*b1^2) from b1 to b2
-    d2 line color rgb(1.0,0.9,0.4) lwidth 0.04  ! Soft Yellow
+    let d31=E*x from 0 to b1
+    d31 line color red lwidth 0.04  
 
-    let d3=E*((1-a)*e_y+a*x) from b2 to b3
-    d3 line color rgb(0.4,0.8,0.9) lwidth 0.04  ! Light Cyan
+    let d32=E*x*(0.5-(x-e_y)/(2*de_y))+E/(2*de_y)*((1+a)/2*x^2-a*(e_y-de_y)*x-(1-a)/2*b1^2) from b1 to b2
+    d32 line color red lwidth 0.04  
 
-    let d4=E*((1-a)*e_y+a*x)*(1-(x-b3)/(2*de_b)) from b3 to b4
-    d4 line color rgb(0.6,0.9,0.6) lwidth 0.04  ! Light Green
+    let d33=E*((1-a)*e_y+a*x) from b2 to b3
+    d33 line color red lwidth 0.04  
 
-    let d5=0*x from b4 to b5
-    d5 line color rgb(0.6,0.4,0.9) lwidth 0.04  ! Medium Purple
+    let d34=E*((1-a)*e_y+a*x)*(1-(x-b3)/(2*de_b)) from b3 to b4
+    d34 line color red lwidth 0.04 
+
+    let d35=0*x from b4 to b5
+    d35 line color red lwidth 0.04  
 
     let d10=0*x from 0 to b1
-    d10 line color rgb(0.0,0.3,0.7) lwidth 0.05 y2axis lstyle 3 key "P_b(\varepsilon)" ! Soft Teal
+    d10 line color blue lwidth 0.05 y2axis lstyle 3 ! Soft Teal
 
     let d20=0*x from 0 to b3
-    d20 line color rgb(1.0,0.65,0.0) lwidth 0.05 y2axis lstyle 3 key "P_y(\varepsilon)"  ! Lavender
+    d20 line color green lwidth 0.05 y2axis lstyle 3 ! Lavender
 
     let d11=(x-b1)/(2*de_y) from b1 to b2
-    d11 line color rgb(0.0,0.3,0.7) lwidth 0.05 y2axis lstyle 3
+    d11 line color blue lwidth 0.05 y2axis lstyle 3
 
     let d21=(x-b3)/(2*de_b) from b3 to b4
-    d21 line color rgb(1.0,0.65,0.0) lwidth 0.05 y2axis lstyle 3
+    d21 line color green lwidth 0.05 y2axis lstyle 3
 
     let d12=x^0 from b2 to b5
-    d12 line color rgb(0.0,0.3,0.7) lwidth 0.05 y2axis lstyle 3
+    d12 line color blue lwidth 0.05 y2axis lstyle 3
 
     let d22=x^0 from b4 to b5
-    d22 line color rgb(1.0,0.65,0.0) lwidth 0.05 y2axis lstyle 3
+    d22 line color green lwidth 0.05 y2axis lstyle 3
 
-    xlabels hei 0.6 dist 0.3  	
-  	ylabels hei 0.6 dist 0.2
+    xlabels hei 0.7 dist 0.3  	
+  	ylabels hei 0.7 dist 0.2
 
     xsticks length 0.2
     ysticks length 0.2
 
-	  xtitle "\epsilon" hei 0.6 dist 0.3
-  	ytitle "\sigma" hei 0.6 dist 0.3 
+	  xtitle "\epsilon" hei 0.8 dist 0.3
+  	ytitle "\sigma" hei 0.8 dist 0.3 
 
-    y2title "P(\varepsilon)" 
+    y2title "P(\varepsilon)" hei 0.8
 
-    y2axis max 1.1
+    y2axis max 1.5
     yaxis min 0
     xaxis max b5
-  	
-    key pos bc compact offset 0 -1.5 
 
 end graph
+
+begin key
+    hei 0.65
+    nobox
+    compact 
+    position tl 
+    offset 0.2 0.2
+    text "P_b(\varepsilon)" line color blue lwidth 0.05 lstyle 3
+    text "P_y(\varepsilon)" line color green lwidth 0.05 lstyle 3
+end key
+
+begin key
+    hei 0.65
+    nobox
+    compact 
+    position tr 
+    offset 0.2 0.2
+    text "theory" line color red lwidth 0.04
+    text "simulation" marker circle msize 0.3 color black 
+end key
 

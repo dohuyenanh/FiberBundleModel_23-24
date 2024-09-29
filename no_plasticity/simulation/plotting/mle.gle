@@ -4,7 +4,7 @@ amove 1 1
 begin graph
   size 14 12
   title "Mean of the maximum likelihood estimate for the scaling parameter" hei 0.4 dist 0.3
-  data "alpha(x_min).txt" d1=c1, c2
+  data "../data/alpha(x_min).txt" d1=c1, c2
   d1 line color red marker circle
 
   let d2 = 0.999999 from 1 to 125  

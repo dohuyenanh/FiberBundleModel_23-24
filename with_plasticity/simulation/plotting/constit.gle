@@ -1,0 +1,20 @@
+size 18 14
+
+amove 1 1
+begin graph
+  size 18 14
+  title "Constitutive Relation" hei 0.6 dist 0.3
+  
+  data "../data/constit.txt" d1=c1,c2
+  d1 line color red
+
+  let d2=0*x from 0 to 2.5
+  d2 line color blue
+
+  xlabels hei 0.6 dist 0.3
+  ylabels hei 0.6 dist 0.3
+
+  xtitle "\epsilon" hei 0.7 dist 0.15
+  ytitle "\sigma" hei 0.7 dist 0.15
+
+end graph

@@ -3,7 +3,7 @@ size 18 14
 amove 1 1
 begin graph
 	size 18 14
-	data "lin_hei_dist.txt" d1=c1,c2
+	data "../data/lin_hei_dist.txt" d1=c1,c2
 	title "Profile's Height Distribution (linear binning)" hei 0.6 dist 0.2
 	d1 line color red marker circle
 

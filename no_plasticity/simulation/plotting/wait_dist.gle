@@ -4,7 +4,7 @@ amove 1 1
 begin graph
   size 18 14
   title "Distribution of Waiting Time Between Avalanches" hei 0.6 dist 0.3
-  data "wait_time_dist.txt" d1=c1,c2
+  data "../data/wait_time_dist.txt" d1=c1,c2
   d1 line color red
 
   !xaxis log

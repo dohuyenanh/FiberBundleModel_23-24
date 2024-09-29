@@ -3,7 +3,7 @@ size 14 12
 amove 1 1
 begin graph
 	size 14 12
-	data "log_dur_dist.txt" d1=c1,c2
+	data "../data/log_dur_dist.txt" d1=c1,c2
 	title "Distribution of Profile's Duration (logarithmic binning)" hei 0.5 dist 0.35
 	d1 line color red marker circle
 

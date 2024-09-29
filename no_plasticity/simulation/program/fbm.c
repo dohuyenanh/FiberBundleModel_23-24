@@ -36,19 +36,19 @@ int main()
 
     int nbroken, nintact;
     FILE *constit, *inc, *liaval, *loaval, *cat, *cat_dist, *lidur, *pro5, *lihei, *w8t, *lodur, *lohei, *avadur;
-    constit = fopen("data/constit.txt", "w");
-    inc = fopen("data/load_increment.txt", "w");
-    liaval = fopen("data/lin_aval_size.txt", "w");
-    loaval = fopen("data/log_aval_size.txt", "w");
-    // cat = fopen("data/cat_aval.txt", "w");
-    cat_dist = fopen("data/dist_cat_aval.txt", "w");
-    lidur = fopen("data/lin_dur_dist.txt", "w");
-    pro5 = fopen("data/average_profile.txt", "w");
-    lihei = fopen("data/lin_hei_dist.txt", "w");
-    w8t = fopen("data/wait_time_dist.txt", "w");
-    lodur = fopen("data/log_dur_dist.txt", "w");
-    lohei = fopen("data/log_hei_dist.txt", "w");
-    avadur = fopen("data/dur_vs_avg_aval.txt", "w");
+    constit = fopen("../data/constit.txt", "w");
+    inc = fopen("../data/load_increment.txt", "w");
+    liaval = fopen("../data/lin_aval_size.txt", "w");
+    loaval = fopen("../data/log_aval_size.txt", "w");
+    // cat = fopen("../data/cat_aval.txt", "w");
+    cat_dist = fopen("../data/dist_cat_aval.txt", "w");
+    lidur = fopen("../data/lin_dur_dist.txt", "w");
+    pro5 = fopen("../data/average_profile.txt", "w");
+    lihei = fopen("../data/lin_hei_dist.txt", "w");
+    w8t = fopen("../data/wait_time_dist.txt", "w");
+    lodur = fopen("../data/log_dur_dist.txt", "w");
+    lohei = fopen("../data/log_hei_dist.txt", "w");
+    avadur = fopen("../data/dur_vs_avg_aval.txt", "w");
 
     memset(avalanche_dist, 0, sizeof(avalanche_dist));
     memset(duration_dist, 0, sizeof(duration_dist));

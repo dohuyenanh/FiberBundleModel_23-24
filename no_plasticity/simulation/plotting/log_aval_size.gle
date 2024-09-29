@@ -3,7 +3,7 @@ size 18 14
 amove 1 1
 begin graph
 	size 18 14
-	data "log_aval_size.txt" d1=c1,c2
+	data "../data/log_aval_size.txt" d1=c1,c2
 	title "Avalanche Distribution (logarithmic binning)" hei 0.7 dist 0.35
 	d1 line color red marker circle
 	

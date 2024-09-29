@@ -10,8 +10,8 @@ void alpha(FILE *indata, int x_max, int x_min, int steps, FILE *outdata);
 int main()
 {
 	FILE *linaval, *alp_aval;
-	linaval = fopen("lin_aval_size.txt", "r");
-	alp_aval = fopen("alpha(x_min).txt", "w");
+	linaval = fopen("../data/lin_aval_size.txt", "r");
+	alp_aval = fopen("../data/alpha(x_min).txt", "w");
 
 	alpha(linaval, X_MAX, 1, STEPS, alp_aval);
 

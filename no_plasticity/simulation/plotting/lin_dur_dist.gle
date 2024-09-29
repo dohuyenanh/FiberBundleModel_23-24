@@ -3,7 +3,7 @@ size 18 16
 amove 1 1
 begin graph
 	size 18 16
-	data "lin_dur_dist.txt" d1=c1,c2
+	data "../data/lin_dur_dist.txt" d1=c1,c2
 	title "Distribution of Profile's Duration (linear binning)" hei 0.7 dist 0.3
 	d1 line color red
 
