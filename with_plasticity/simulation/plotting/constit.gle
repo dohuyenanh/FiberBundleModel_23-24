@@ -6,10 +6,7 @@ begin graph
   title "Constitutive Relation" hei 0.6 dist 0.3
   
   data "../data/constit.txt" d1=c1,c2
-  d1 line color red
-
-  let d2=0*x from 0 to 2.5
-  d2 line color blue
+  d1 line color red deresolve 350
 
   xlabels hei 0.6 dist 0.3
   ylabels hei 0.6 dist 0.3

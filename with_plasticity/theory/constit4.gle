@@ -23,7 +23,7 @@ begin graph
     title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
 
     data "../simulation/data/constit.txt" d30=c1,c2
-    d30 marker circle msize 0.3 color black deresolve 300 ! every 200th point will be plotted
+    d30 marker circle msize 0.3 color black deresolve 200 ! every 200th point will be plotted
 
     let d31=E*x from 0 to b1
     d31 line color red lwidth 0.04  
