@@ -5,7 +5,7 @@
 
 // Declare global variables for the parameters
 double alpha_1, alpha_2, alpha_3, e_b, e_y, de_b_1, de_b_2, de_b_3, de_b_4, de_y, limit, E;
-int N;
+int N, no_of_alpha, no_of_de_b, no_of_de_y, no_of_e_b, no_of_e_y;
 double *yielding; // yielding thresholds of fibers
 double *broken;   // breaking thresholds of fibers
 int i, j;         // counters
@@ -32,7 +32,7 @@ int main()
     double alpha[3] = {alpha_1, alpha_2, alpha_3};
     double de_breaking[4] = {de_b_1, de_b_2, de_b_3, de_b_4};
 
-    for (int index = 0; index < 3; index++)
+    for (int index = 0; index < no_of_alpha; index++)
     {
         // intialize yielding[] and broken[]
         uniform(yielding, e_y, de_y, N);
@@ -46,7 +46,7 @@ int main()
         constitutive(e_y, de_y, e_b, de_breaking[0], alpha[index], constit);
     }
 
-    for (int index = 0; index < 4; index++)
+    for (int index = 0; index < no_of_de_b; index++)
     {
         // intialize yielding[] and broken[]
         uniform(yielding, e_y, de_y, N);
@@ -175,20 +175,29 @@ void read_config(const char *filename) {
         exit(EXIT_FAILURE);
     }
 
-    // Read parameters from JSON
-    alpha_1 = cJSON_GetObjectItem(json, "alpha_1")->valuedouble;
-    alpha_2 = cJSON_GetObjectItem(json, "alpha_2")->valuedouble;
-    alpha_3 = cJSON_GetObjectItem(json, "alpha_3")->valuedouble;
-    e_b = cJSON_GetObjectItem(json, "e_b")->valuedouble;
-    e_y = cJSON_GetObjectItem(json, "e_y")->valuedouble;
-    de_b_1 = cJSON_GetObjectItem(json, "de_b_1")->valuedouble;
-    de_b_2 = cJSON_GetObjectItem(json, "de_b_2")->valuedouble;
-    de_b_3 = cJSON_GetObjectItem(json, "de_b_3")->valuedouble;
-    de_b_4 = cJSON_GetObjectItem(json, "de_b_4")->valuedouble;
-    de_y = cJSON_GetObjectItem(json, "de_y")->valuedouble;
-    limit = cJSON_GetObjectItem(json, "limit")->valuedouble;
-    N = cJSON_GetObjectItem(json, "N")->valueint;
-    E = cJSON_GetObjectItem(json, "E")->valuedouble;
+    // Read parameters from the first object
+    cJSON *values = cJSON_GetObjectItem(json, "values");
+    alpha_1 = cJSON_GetObjectItem(values, "alpha_1")->valuedouble;
+    alpha_2 = cJSON_GetObjectItem(values, "alpha_2")->valuedouble;
+    alpha_3 = cJSON_GetObjectItem(values, "alpha_3")->valuedouble;
+    e_b = cJSON_GetObjectItem(values, "e_b")->valuedouble;
+    e_y = cJSON_GetObjectItem(values, "e_y")->valuedouble;
+    de_b_1 = cJSON_GetObjectItem(values, "de_b_1")->valuedouble;
+    de_b_2 = cJSON_GetObjectItem(values, "de_b_2")->valuedouble;
+    de_b_3 = cJSON_GetObjectItem(values, "de_b_3")->valuedouble;
+    de_b_4 = cJSON_GetObjectItem(values, "de_b_4")->valuedouble;
+    de_y = cJSON_GetObjectItem(values, "de_y")->valuedouble;
+    limit = cJSON_GetObjectItem(values, "limit")->valuedouble;
+    N = cJSON_GetObjectItem(values, "N")->valueint;
+    E = cJSON_GetObjectItem(values, "E")->valuedouble;
+
+    // Read parameters from the second object
+    cJSON *number_of_values = cJSON_GetObjectItem(json, "number of values");
+    no_of_e_y = cJSON_GetObjectItem(number_of_values, "no. of e_y")->valueint;
+    no_of_e_b = cJSON_GetObjectItem(number_of_values, "no. of e_b")->valueint;
+    no_of_de_y = cJSON_GetObjectItem(number_of_values, "no. of de_y")->valueint;
+    no_of_de_b = cJSON_GetObjectItem(number_of_values, "no. of de_b")->valueint;
+    no_of_alpha = cJSON_GetObjectItem(number_of_values, "no. of alpha")->valueint;
 
     // Initialize yielding and broken arrays dynamically based on the parameters
     yielding = malloc(N * sizeof(double));

@@ -1,4 +1,5 @@
 {
+    "values": {
         "N": 10000,
         "E": 1.0,
         "limit": 5,
@@ -12,4 +13,12 @@
         "alpha_1": 0.2,
         "alpha_2": 0.5,
         "alpha_3": 0.8
+    },
+    "number of values": {
+        "no. of e_y": 1,
+        "no. of e_b": 1,
+        "no. of de_y": 1,
+        "no. of de_b": 4,
+        "no. of alpha": 3
+    }
 }
