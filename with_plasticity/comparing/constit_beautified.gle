@@ -1,6 +1,5 @@
-size 18 12
+size 18 25
 
-!REMEMBER: show gridlines at special points
 !read constit4.gle
 !Given:
 E = 1           !elastic modulus of intact fibers
@@ -17,10 +16,14 @@ b2 = e_y + de_y     !stop intact
 b3 = e_b - de_b     !start breaking
 b4 = e_b + de_b     !every fiber is broken
 
+
 amove 0 1
 begin graph
     size 18 12
-    title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
+    ! title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
+
+    data "../simulation/data/constit.txt" d30=c1,c2
+    d30 marker circle msize 0.3 color black deresolve 200 ! every 5th point will be plotted
 
     let d31=E*x from 0 to b1
     d31 line color red lwidth 0.04  
@@ -37,26 +40,8 @@ begin graph
     let d35=0*x from b4 to limit
     d35 line color red lwidth 0.04  
 
-    let d10=0*x from 0 to b1
-    d10 line color blue lwidth 0.05 y2axis lstyle 3 
-
-    let d20=0*x from 0 to b3
-    d20 line color green lwidth 0.05 y2axis lstyle 3 
-
-    let d11=(x-b1)/(2*de_y) from b1 to b2
-    d11 line color blue lwidth 0.05 y2axis lstyle 3
-
-    let d21=(x-b3)/(2*de_b) from b3 to b4
-    d21 line color green lwidth 0.05 y2axis lstyle 3
-
-    let d12=x^0 from b2 to limit
-    d12 line color blue lwidth 0.05 y2axis lstyle 3
-
-    let d22=x^0 from b4 to limit
-    d22 line color green lwidth 0.05 y2axis lstyle 3
-
-    xlabels hei 0.8 dist 0.3  	
-  	ylabels hei 0.8 dist 0.2
+    xlabels hei 0.7 dist 0.3  	
+  	ylabels hei 0.7 dist 0.2
 
     xsticks length 0.2
     ysticks length 0.2
@@ -64,10 +49,8 @@ begin graph
 	xtitle "\epsilon" hei 0.8 dist 0.3
   	ytitle "\sigma" hei 0.8 dist 0.3 
 
-    y2title "P(\varepsilon)" hei 0.8
-
-    y2axis max 1.5
-    yaxis min 0
+    yaxis min 0 
+    yaxis max 0.795
     xaxis max limit
 
 end graph
@@ -84,7 +67,7 @@ gsave
     set lstyle 9
     set color gray10 ! x5
     amove xg(b1) yg(0)
-    aline xg(b1) yg(0.8)
+    aline xg(b1) yg(1.6)
 grestore
 
 gsave
@@ -92,7 +75,7 @@ gsave
     set lstyle 9
     set color gray10 ! x5
     amove xg(b2) yg(0)
-    aline xg(b2) yg(0.8)
+    aline xg(b2) yg(1.6)
 grestore
 
 gsave
@@ -100,7 +83,7 @@ gsave
     set lstyle 9
     set color gray10 ! x5
     amove xg(b3) yg(0)
-    aline xg(b3) yg(0.8)
+    aline xg(b3) yg(1.6)
 grestore
 
 gsave
@@ -108,18 +91,8 @@ gsave
     set lstyle 9
     set color gray10 ! x5
     amove xg(b4) yg(0)
-    aline xg(b4) yg(0.8)
+    aline xg(b4) yg(1.6)
 grestore
-
-begin key
-    hei 0.65
-    nobox
-    compact 
-    position tl 
-    offset 0.2 0.2
-    text "P_b(\varepsilon)" line color blue lwidth 0.05 lstyle 3
-    text "P_y(\varepsilon)" line color green lwidth 0.05 lstyle 3
-end key
 
 begin key
     hei 0.65
@@ -127,6 +100,54 @@ begin key
     compact 
     position tr 
     offset 0.2 0.2
-    text "\sigma(\epsilon)" line color red lwidth 0.04
+    text "theory" line color red lwidth 0.04
+    text "simulation" marker circle msize 0.3 color black 
 end key
 
+amove 0 9.4 
+begin graph
+    size 18 12
+
+    let d10=0*x from 0 to b1
+    d10 line color blue lwidth 0.05 lstyle 3 
+
+    let d20=0*x from 0 to b3
+    d20 line color green lwidth 0.05 lstyle 3 
+
+    let d11=(x-b1)/(2*de_y) from b1 to b2
+    d11 line color blue lwidth 0.05 lstyle 3
+
+    let d21=(x-b3)/(2*de_b) from b3 to b4
+    d21 line color green lwidth 0.05 lstyle 3
+
+    let d12=x^0 from b2 to limit
+    d12 line color blue lwidth 0.05 lstyle 3
+
+    let d22=x^0 from b4 to limit
+    d22 line color green lwidth 0.05 lstyle 3
+
+    xlabels off	
+  	ylabels hei 0.7 dist 0.2
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+	x2title "\epsilon" hei 0.8 dist 0.3
+
+    ytitle "P(\varepsilon)" hei 0.8
+
+    yaxis max 1.1
+    yaxis min 0
+    xaxis max limit
+
+end graph
+
+begin key
+    hei 0.65
+    nobox
+    compact 
+    position br 
+    offset 0.2 0.2
+    text "P_b(\varepsilon)" line color blue lwidth 0.05 lstyle 3
+    text "P_y(\varepsilon)" line color green lwidth 0.05 lstyle 3
+end key
