@@ -1,25 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h> //for memset
+#include <string.h>
+#include <cjson/cJSON.h>
 
-#define N 10000    // number of fibers
-#define E 1.0      // Young's modulus
-#define e_y 0.45   // mean value of yielding thresholds
-#define e_b 3.5    // mean value of breaking thresholds
-#define de_y 0.2   // radius of the uniform distribution of e_y
-#define de_b_1 1.1 // radius of the uniform distribution of e_b
-#define de_b_2 1.5
-#define de_b_3 2.0
-#define de_b_4 2.5
-#define alpha_1 0.2 // ratio of the elastic modulus of yielding fibers to E
-#define alpha_2 0.5
-#define alpha_3 0.8
-#define limit 5 // the upper limit of the strain
-
-// double elastic[N];    // elastic fibers
-double yielding[N]; // yielding thresholds of fibers
-double broken[N];   // breaking thresholds of fibers
-int i, j;           // counters
+// Declare global variables for the parameters
+double alpha_1, alpha_2, alpha_3, e_b, e_y, de_b_1, de_b_2, de_b_3, de_b_4, de_y, limit, E;
+int N;
+double *yielding; // yielding thresholds of fibers
+double *broken;   // breaking thresholds of fibers
+int i, j;         // counters
 
 double rand01();
 
@@ -31,8 +20,13 @@ void uniform(double array[], double mean, double radius, int sizeOfArray);
 void constitutive(double e_yielding, double de_yielding, double e_breaking, double de_breaking, double alpha, FILE *outputFile);
 // function to export output data of the constitutive relation as one of the parameter change
 
+void read_config(const char *filename);
+// Function to read the configuration file
+
 int main()
 {
+    // Read the configuration file
+    read_config("parameters.json");
     char filename[50];
 
     double alpha[3] = {alpha_1, alpha_2, alpha_3};
@@ -65,6 +59,10 @@ int main()
 
         constitutive(e_y, de_y, e_b, de_breaking[index], alpha[0], constit);
     }
+
+    // Free allocated memory
+    free(yielding);
+    free(broken);
 
     return 0;
 }
@@ -155,4 +153,51 @@ void constitutive(double e_yielding, double de_yielding, double e_breaking, doub
         fprintf(outputFile, "%lf\t%lf\n", eps, sigma);
     }
     fclose(outputFile);
+}
+
+void read_config(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (!file) {
+        perror("fopen");
+        exit(EXIT_FAILURE);
+    }
+
+    fseek(file, 0, SEEK_END);
+    long length = ftell(file);
+    fseek(file, 0, SEEK_SET);
+    char *data = malloc(length + 1);
+    fread(data, 1, length, file);
+    fclose(file);
+
+    cJSON *json = cJSON_Parse(data);
+    if (!json) {
+        fprintf(stderr, "Error parsing JSON\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Read parameters from JSON
+    alpha_1 = cJSON_GetObjectItem(json, "alpha_1")->valuedouble;
+    alpha_2 = cJSON_GetObjectItem(json, "alpha_2")->valuedouble;
+    alpha_3 = cJSON_GetObjectItem(json, "alpha_3")->valuedouble;
+    e_b = cJSON_GetObjectItem(json, "e_b")->valuedouble;
+    e_y = cJSON_GetObjectItem(json, "e_y")->valuedouble;
+    de_b_1 = cJSON_GetObjectItem(json, "de_b_1")->valuedouble;
+    de_b_2 = cJSON_GetObjectItem(json, "de_b_2")->valuedouble;
+    de_b_3 = cJSON_GetObjectItem(json, "de_b_3")->valuedouble;
+    de_b_4 = cJSON_GetObjectItem(json, "de_b_4")->valuedouble;
+    de_y = cJSON_GetObjectItem(json, "de_y")->valuedouble;
+    limit = cJSON_GetObjectItem(json, "limit")->valuedouble;
+    N = cJSON_GetObjectItem(json, "N")->valueint;
+    E = cJSON_GetObjectItem(json, "E")->valuedouble;
+
+    // Initialize yielding and broken arrays dynamically based on the parameters
+    yielding = malloc(N * sizeof(double));
+    broken = malloc(N * sizeof(double));
+
+    // Generate arrays dynamically using uniform distribution
+    uniform(yielding, e_y, de_y, N);  // generate yielding array
+    uniform(broken, e_b, de_b_1, N);  // generate broken array using de_b_1 (you can switch to other de_b_x as needed)
+
+    cJSON_Delete(json);
+    free(data);
 }
