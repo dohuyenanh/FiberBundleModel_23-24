@@ -25,8 +25,8 @@ x_values3, y_values3 = zip(*data3)
 
 # Plot the data
 plt.plot(x_values1, y_values1, label=r"$\Delta {\epsilon_b}_1=1.1$", color="red")
-plt.plot(x_values2, y_values2, label=r"$\Delta {\epsilon_b}_2=1.2$", color="green")
-plt.plot(x_values3, y_values3, label=r"$\Delta {\epsilon_b}_3=1.3$", color="blue")
+plt.plot(x_values2, y_values2, label=r"$\Delta {\epsilon_b}_2=1.5$", color="green")
+plt.plot(x_values3, y_values3, label=r"$\Delta {\epsilon_b}_3=2.0$", color="blue")
 
 # Add labels and title
 plt.xlabel(r"$\epsilon$")

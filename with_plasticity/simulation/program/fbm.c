@@ -4,12 +4,12 @@
 
 #define N 10000    // number of fibers
 #define E 1.0      // Young's modulus
-#define e_y 0.35   // mean value of yielding thresholds
+#define e_y 0.45   // mean value of yielding thresholds
 #define e_b 3.5    // mean value of breaking thresholds
 #define de_y 0.2   // radius of the uniform distribution of e_y
 #define de_b_1 1.1 // radius of the uniform distribution of e_b
-#define de_b_2 1.2
-#define de_b_3 1.3
+#define de_b_2 1.5
+#define de_b_3 2.0
 #define alpha_1 0.2 // ratio of the elastic modulus of yielding fibers to E
 #define alpha_2 0.5
 #define alpha_3 0.8
@@ -61,7 +61,7 @@ int main()
         sprintf(filename, "../data/constit(de_b-%d).txt", index + 1);
         FILE *constit;
         constit = fopen(filename, "w");
-        
+
         constitutive(e_y, de_y, e_b, de_breaking[index], alpha[0], constit);
     }
 
