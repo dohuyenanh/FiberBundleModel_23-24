@@ -1,6 +1,6 @@
 import os
 import matplotlib.pyplot as plt
-from read_parameters import read_parameters, read_number_of_parameters
+from read_parameters import read_parameters, read_number_of_parameters  # pylint: disable=import-error
 
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.size"] = 14
