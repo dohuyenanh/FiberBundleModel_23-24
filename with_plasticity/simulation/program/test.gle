@@ -1,0 +1,14 @@
+!Given:
+E = 1.0           !elastic modulus of intact fibers
+e_y = 0.45      !mean value of yielding thresholds
+e_b = 3.5      !mean value of broken thresholds
+de_y = 0.2      !radius of the uniform distribution of e_y
+de_b = 1.1      !radius of the uniform distribution of e_b
+a = 0.2         !ratio of the elastic modulus of yielding fibers to E
+limit = 5       !upper limit of the strain axis
+
+!To make it easier to graph, introduce some markers at the borders between each 2 adjacent intervals:
+b1 = e_y - de_y     !start yielding 
+b2 = e_y + de_y     !stop intact
+b3 = e_b - de_b     !start breaking
+b4 = e_b + de_b     !every fiber is broken
