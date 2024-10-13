@@ -6,11 +6,11 @@ begin graph
   title "Constitutive Relation" hei 0.6 dist 0.3
   
   data "../data/constit(alpha-1).txt" d1=c1,c2
-  d1 line color red deresolve 10000
+  d1 line color red deresolve 1000
   data "../data/constit(alpha-2).txt" d2=c1,c2
-  d2 line color green deresolve 10000
+  d2 line color green deresolve 1000
   data "../data/constit(alpha-3).txt" d3=c1,c2
-  d3 line color blue deresolve 10000
+  d3 line color blue deresolve 1000
 
   xlabels hei 0.6 dist 0.3
   ylabels hei 0.6 dist 0.3

@@ -1,7 +1,7 @@
 size 18 12
 
 !REMEMBER: show gridlines at special points
-!read constit4.tex
+!read constit4.gle
 !Given:
 E = 1           !elastic modulus of intact fibers
 e_y = 0.35      !mean value of yielding thresholds
@@ -9,18 +9,21 @@ e_b = 3.5       !mean value of broken thresholds
 de_y = 0.2      !radius of the uniform distribution of e_y
 de_b = 1.1      !radius of the uniform distribution of e_b
 a = 0.2         !ratio of the elastic modulus of yielding fibers to E
+limit = 5       !upper limit of the strain axis
 
 !To make it easier to graph, introduce some markers at the borders between each 2 adjacent intervals:
 b1 = e_y - de_y     !start yielding
 b2 = e_y + de_y     !stop intact
 b3 = e_b - de_b     !start breaking
 b4 = e_b + de_b     !every fiber is broken
-b5 = 5              !upper limit of strain
 
 amove 0 1
 begin graph
     size 18 12
     title "Constitutive Relation of Fibers with Plasticity" hei 0.5 dist 0.35
+
+    data "../simulation/data/constit.txt" d30=c1,c2
+    d30 marker circle msize 0.3 color black deresolve 200 ! every 200th point will be plotted
 
     let d31=E*x from 0 to b1
     d31 line color red lwidth 0.04  
@@ -34,25 +37,23 @@ begin graph
     let d34=E*((1-a)*e_y+a*x)*(1-(x-b3)/(2*de_b)) from b3 to b4
     d34 line color red lwidth 0.04 
 
-    let d35=0*x from b4 to b5
+    let d35=0*x from b4 to limit
     d35 line color red lwidth 0.04  
 
     let d10=0*x from 0 to b1
     d10 line color blue lwidth 0.05 y2axis lstyle 3 
-
     let d20=0*x from 0 to b3
     d20 line color green lwidth 0.05 y2axis lstyle 3 
-
     let d11=(x-b1)/(2*de_y) from b1 to b2
     d11 line color blue lwidth 0.05 y2axis lstyle 3
 
     let d21=(x-b3)/(2*de_b) from b3 to b4
     d21 line color green lwidth 0.05 y2axis lstyle 3
 
-    let d12=x^0 from b2 to b5
+    let d12=x^0 from b2 to limit
     d12 line color blue lwidth 0.05 y2axis lstyle 3
 
-    let d22=x^0 from b4 to b5
+    let d22=x^0 from b4 to limit
     d22 line color green lwidth 0.05 y2axis lstyle 3
 
     xlabels hei 0.8 dist 0.3  	
@@ -68,7 +69,7 @@ begin graph
 
     y2axis max 1.5
     yaxis min 0
-    xaxis max b5
+    xaxis max limit
 
 end graph
 
@@ -127,6 +128,7 @@ begin key
     compact 
     position tr 
     offset 0.2 0.2
-    text "\sigma(\epsilon)" line color red lwidth 0.04
+    text "theory" line color red lwidth 0.04
+    text "simulation" marker circle msize 0.3 color black 
 end key
 
