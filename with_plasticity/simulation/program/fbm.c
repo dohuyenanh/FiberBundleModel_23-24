@@ -10,6 +10,7 @@
 #define de_b_1 1.1 // radius of the uniform distribution of e_b
 #define de_b_2 1.5
 #define de_b_3 2.0
+#define de_b_4 2.5
 #define alpha_1 0.2 // ratio of the elastic modulus of yielding fibers to E
 #define alpha_2 0.5
 #define alpha_3 0.8
@@ -35,7 +36,7 @@ int main()
     char filename[50];
 
     double alpha[3] = {alpha_1, alpha_2, alpha_3};
-    double de_breaking[3] = {de_b_1, de_b_2, de_b_3};
+    double de_breaking[4] = {de_b_1, de_b_2, de_b_3, de_b_4};
 
     for (int index = 0; index < 3; index++)
     {
@@ -51,7 +52,7 @@ int main()
         constitutive(e_y, de_y, e_b, de_breaking[0], alpha[index], constit);
     }
 
-    for (int index = 0; index < 3; index++)
+    for (int index = 0; index < 4; index++)
     {
         // intialize yielding[] and broken[]
         uniform(yielding, e_y, de_y, N);
