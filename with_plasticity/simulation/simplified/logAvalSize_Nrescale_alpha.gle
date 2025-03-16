@@ -1,0 +1,50 @@
+size 14 12
+
+N1=100000
+N2=10000
+N3=1000
+
+a=0.59
+b=1.1
+
+amove 1 1
+begin graph
+  size 14 12
+  data "data/logAvalSizeDist_100000_0p2000.txt" d1=c1,c2
+  let d1 = x/(N1^a), d1*(N1^b)
+  d1 line marker circle color red
+
+  data "data/logAvalSizeDist_10000_0p2000.txt" d2=c1,c2
+  let d2 = x/(N2^a), d2*(N2^b)
+  d2 line marker triangle color blue
+
+  data "data/logAvalSizeDist_1000_0p2000.txt" d3=c1,c2
+  let d3 = x/(N3^a), d3*(N3^b)
+  d3 line marker square color green  
+
+  let d12 =0.002e7*x^-2.5 from 1e-3 to 5
+  d12 line lwidth 0.04
+
+!  let d13 = 2e3*x^-1.5 from 1e-3 to 10
+!  d13 line lwidth 0.04
+
+  xaxis log
+  yaxis log dticks 2
+
+  xlabels hei 0.7 dist 0.1 log n1
+  ylabels hei 0.7 dist 0.1 log n1
+
+  xtitle "\Delta/N^a" hei 0.9 dist 0.15
+  ytitle "p(\Delta)N^{\delta}" hei 0.9 dist 0.15
+
+end graph
+begin key
+  nobox
+  hei 0.7
+  position tr
+  offset 0.2 0.2
+  compact
+  text "N=1000" line marker circle color red
+  text "N=10000" line marker triangle color blue
+  text "N=100000" line marker square color green  
+end key

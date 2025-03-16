@@ -1,0 +1,75 @@
+size 14 12
+
+a=1776.57
+amove 1 1
+begin graph
+  size 14 12
+    !title "Avalanche Size Distribution (logarithmic binning) with varying \alpha" hei 0.7 dist 0.35
+
+    data "data/logAvalSizeDist_100000_0p0550.txt" d1=c1,c2
+    d1 line marker square
+
+    data "data/logAvalSizeDist_100000_0p0650.txt" d2=c1,c2
+    d2 line marker diamond color teal
+
+    data "data/logAvalSizeDist_100000_0p0700.txt" d3=c1,c2
+    d3 line marker triangle color red
+
+    data "data/logAvalSizeDist_100000_0p1000.txt" d4=c1,c2
+    d4 line marker asterisk color blue
+
+    data "data/logAvalSizeDist_100000_0p6000.txt" d5=c1,c2
+    d5 line marker cross color darkgreen
+
+    data "data/logAvalSizeDist_100000_1p0000.txt" d6=c1,c2
+    d6 line marker circle color brown
+
+    let d11 = 4500000*x^-2.5 from 1 to 5000
+    d11 line lwidth 0.05 color red
+
+    let d12 = 1000*x^-1.5 from 1 to 5000
+    d12 line lwidth 0.05 color green
+
+    xaxis log
+    yaxis log dticks 2
+
+    ysubticks off
+
+    xlabels hei 0.6 dist 0.1 log n1
+    ylabels hei 0.6 dist 0.1 log n1
+
+    xtitle "\Delta" dist 0.1 hei 0.75
+    ytitle "p(\Delta)" dist 0.1 hei 0.75
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+end graph
+
+begin key
+  position tr
+  offset 0.1 0.1
+  hei 0.5
+  nobox
+  compact
+  text "0.055"   line marker square
+  text "0.065"  marker diamond color teal
+  text "0.07"    line marker triangle color red
+  text "0.1"    line marker asterisk color blue
+  text "0.6"    line marker cross color darkgreen
+  text "1.0"   line marker circle color brown
+end key
+
+set hei 0.9
+amove 8.9 8.8
+text \alpha
+
+begin key
+  position bl
+  offset 0.1 0.1
+  hei 0.5
+  nobox
+  compact
+  text "\propto \Delta^{-2.5}" line lwidth 0.05 color red
+  text "\propto \Delta^{-1.5}" line lwidth 0.05 color green
+end key

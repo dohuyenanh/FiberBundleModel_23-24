@@ -1,0 +1,66 @@
+size 14 12
+
+a=1776.57
+amove 1 1
+begin graph
+  size 14 12
+    !title "Avalanche Size Distribution (logarithmic binning) with varying \alpha" hei 0.7 dist 0.35
+
+    data "../data/results_2/logAvalSizeDist0p005.txt" d2=c1,c2
+    d2 line marker square
+    data "../data/results_2/logAvalSizeDist0p0075.txt" d3=c1,c2
+    d3 line marker diamond color teal
+    data "../data/results_2/logAvalSizeDist0p01.txt" d4=c1,c2
+    d4 line marker triangle color red
+    data "../data/results_2/logAvalSizeDist0p02.txt" d5=c1,c2
+    d5 line marker asterisk color blue
+    data "../data/results_2/logAvalSizeDist0p05.txt" d6=c1,c2
+    d6 line marker cross color darkgreen
+    data "../data/results_2/logAvalSizeDist0p075.txt" d7=c1,c2
+    d7 line marker circle color brown
+    data "../data/results_1/logAvalSizeDist0p1.txt" d8=c1,c2
+    d8 line marker fsquare color darkcyan
+    data "../data/results_1/logAvalSizeDist1p0.txt" d9=c1,c2
+    d9 line marker wdiamond color magenta
+
+    let d11 = 2500000*x^-2.1 from 1 to 10000
+    d11 line lwidth 0.05 color red
+
+    let d12 = 6500000*x^-2.45 from 1 to 10000
+    d12 line lwidth 0.05 color green
+
+    xaxis log
+    yaxis log dticks 2
+
+    ysubticks off
+
+    xlabels hei 0.6 dist 0.1 log n1
+    ylabels hei 0.6 dist 0.1 log n1
+
+    xtitle "\Delta" dist 0.1 hei 0.75
+    ytitle "p(\Delta)" dist 0.1 hei 0.75
+
+    xsticks length 0.2
+    ysticks length 0.2
+
+end graph
+
+begin key
+  position tr
+  offset 0.1 0.1
+  hei 0.5
+  nobox
+  compact
+  text "0.005"   line marker square
+  text "0.0075"  marker diamond color teal
+  text "0.01"    line marker triangle color red
+  text "0.02"    line marker asterisk color blue
+  text "0.05"    line marker cross color darkgreen
+  text "0.075"   line marker circle color brown
+  text "0.1"     line marker fsquare color darkcyan
+  text "1.0"     line marker wdiamond color magenta
+end key
+
+set hei 0.9
+amove 8.9 8.8
+text \alpha

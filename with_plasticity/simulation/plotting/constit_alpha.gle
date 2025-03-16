@@ -1,0 +1,29 @@
+size 18 14
+
+amove 1 1
+begin graph
+  size 18 14
+  title "Constitutive Relation with Varying \alpha" hei 0.6 dist 0.3
+  
+  d1 bigfile "../data/constit(alpha-1).txt, 1, 2" line color red 
+  d2 bigfile "../data/constit(alpha-2).txt, 1, 2" line color green 
+  d3 bigfile "../data/constit(alpha-3).txt, 1, 2" line color blue 
+
+  xlabels hei 0.6 dist 0.3
+  ylabels hei 0.6 dist 0.3
+
+  xtitle "\varepsilon" hei 0.7 dist 0.15
+  ytitle "\sigma" hei 0.7 dist 0.15
+
+end graph
+
+begin key
+    hei 0.65
+    nobox
+    compact 
+    position tr 
+    offset 0.2 0.2
+    text "\alpha_1" line color red line color red
+    text "\alpha_2" line color red line color green
+    text "\alpha_3" line color red line color blue
+end key

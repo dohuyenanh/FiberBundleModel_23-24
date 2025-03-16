@@ -1,7 +1,5 @@
 size 18 12
 
-!REMEMBER: show gridlines at special points
-!read constit4.gle
 !Given:
 E = 1           !elastic modulus of intact fibers
 e_y = 0.35      !mean value of yielding thresholds

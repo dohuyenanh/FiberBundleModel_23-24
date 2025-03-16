@@ -1,0 +1,44 @@
+size 18 14
+
+N1 = 1000
+N2 = 10000
+N3 = 100000
+
+amove 1 1
+begin graph
+  size 18 14
+  !title "Average Catastrophic Avalanche Size" hei 0.6 dist 0.3
+  
+  data "aveParamAlpha_1000.txt" d1=c1,c2
+  let d1=x, d1/N1
+  d1 line marker circle color red 
+
+  data "aveParamAlpha_10000.txt" d2=c1,c2
+  let d2=x, d2/N2
+  d2 line marker triangle color blue 
+
+  data "aveParamAlpha_100000.txt" d3=c1,c2
+  let d3=x, d3/N3
+  d3 line marker square color green 
+
+  xlabels hei 0.7 dist 0.25
+  ylabels hei 0.7 dist 0.25
+
+  xtitle "\alpha" hei 1 dist 0.5
+  ytitle "<\Delta_{cat}> / N" hei 1 dist 0.5
+
+  xaxis log
+  !yaxis log
+
+end graph
+
+begin key
+    hei 0.7  
+    nobox
+    compact 
+    position bl 
+    offset 0.1 0.1
+    text "N = 1000" line marker circle color red 
+    text "N = 10000" line marker triangle color blue 
+    text "N = 100000" line marker square color green 
+end key

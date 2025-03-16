@@ -6,6 +6,7 @@
 \renewcommand{\thesection}{\Roman{section}.} % Section format
 \renewcommand{\thesubsection}{\arabic{subsection}.} % Subsection format
 \usepackage{graphicx} % For including images
+\usepackage{subcaption} % For subfigures
 
 % Define new commands for frequently used expressions
 \newcommand{\eps}{\varepsilon}
@@ -69,7 +70,7 @@ P_b(\eps_b) =
 There are 3 types of fibers: intact, yielding, and broken. The stress-strain function is:
 \begin{align}
     \sigma(\eps) &= E \eps [1 - P_y(\eps)] + \bigg(\int\limits_0^\eps [\alpha E (\eps - \eps_y) + E \eps_y] \cdot p_y(\eps_y) ~ d\eps_y \bigg)\cdot [1 - P_b(\eps)] \\
-    &= E \eps [ 1 - P_y(\eps) ] + \Bigg[\int\limits_0^\eps [(\alpha + 1) E \eps_y + \alpha E \eps] \cdot p_y(\eps_y) ~ d\eps_y \Bigg]\cdot [1 - P_b(\eps)]
+    &= E \eps [ 1 - P_y(\eps) ] + \Bigg[\int\limits_0^\eps [(1 - \alpha) E \eps_y + \alpha E \eps] \cdot p_y(\eps_y) ~ d\eps_y \Bigg]\cdot [1 - P_b(\eps)]
 \label{stress_strain}
 \end{align}
 where $\alpha$ is the ratio of the elastic modulus of yielding fibers to that of intact fibers, and $E$ is the elastic modulus of intact fibers.
@@ -94,7 +95,14 @@ In this interval, some fibers are yielding, some still are intact. Substitute \e
 
 \begin{align}
     \notag
-    \sigma(\eps) &= E \eps \bigg[1 - \frac{\eps - (\ey - \dey)}{2 \dey} \bigg] + \Bigg[\int\limits_0^{\ey - \dey} [\alpha E (\eps - \eps_y) + E \eps_y] \cdot 0 ~ d\eps_y + \int\limits_{\ey - \dey}^\eps [\alpha E (\eps - \eps_y) + E \eps_y] \cdot \frac{1}{2 \dey} ~ d\eps_y \Bigg]\cdot [1 - 0] \\
+    \sigma(\eps) &= E \eps \bigg[1 - \frac{\eps - (\ey - \dey)}{2 \dey} \bigg] + \Bigg[\int\limits_0^{\ey - \dey} 0 + \int\limits_{\ey - \dey}^\eps [(1-\alpha) E \eps_y + \alpha E \eps] \cdot \frac{1}{2 \dey} ~ d\eps_y \Bigg]\cdot [1 - 0] \\
+    \notag
+    &= E \eps \bigg[1 - \frac{\eps - \ey}{2 \dey} - \frac{\dey}{2 \dey} \bigg] + \frac{E}{2 \dey} \int\limits_{\ey - \dey}^\eps [(1 - \alpha) \eps_y + \alpha \eps ] ~ d\eps_y \\
+    \notag
+    &= E \eps \Bigg( \frac{1}{2} - \frac{\eps - \ey}{2 \dey} \Bigg) + \frac{E}{2 \dey} \bigg[ \frac{1 - \alpha}{2} {\eps_y}^2 + \alpha \eps \eps_y \bigg] \limits_{\ey - \dey}^\eps \\
+    \notag
+    &= E \eps \Bigg( \frac{1}{2} - \frac{\eps - \ey}{2 \dey} \Bigg) + \frac{E}{2 \dey} \bigg[ \frac{1 - \alpha}{2} \eps^2 + \alpha \eps^2 - \frac{1 - \alpha}{2} \big(\ey - \dey\big)^2 - \alpha \eps \big(\ey - \dey \big) \bigg] \\
+    \sigma(\eps) &= E \eps \Bigg( \frac{1}{2} - \frac{\eps - \ey}{2 \dey} \Bigg) + \frac{E}{2 \dey} \bigg[ \frac{1 + \alpha}{2} \eps^2 - \alpha \big(\ey - \dey \big) \eps - \frac{1 - \alpha}{2} \big(\ey - \dey\big)^2 \bigg] 
 \end{align}
 
 %------------------------------------------------------------------------------
@@ -106,16 +114,16 @@ In this interval, all fibers are yielding, i.e., no fiber is intact anymore, and
 
 \begin{align}
     \notag
-    \sigma(\eps) &= E \eps [ 1 - 1 ] + \bigg[\int\limits_0^\eps \alpha E \cdot (\eps - \eps_y) \cdot p_y(\eps_y) ~ d\eps_y \bigg] \cdot [1 - 0] \\
+    \sigma(\eps) &= E \eps ( 1 - 1 ) + \Bigg[\int\limits_0^{\ey - \dey} 0 + \int\limits_{\ey - \dey}^{\ey + \dey} \big[[(1 - \alpha) E \eps_y + \alpha E \eps] \cdot \frac{1}{2 \dey} ~ d\eps_y  \big] + \int\limits_{\ey + \dey}^0 0 \Bigg] \cdot (1 - 0) \\
     \notag
-    &= \int\limits_0^{\avg{\eps_y} + \dey} \alpha E \cdot (\eps - \eps_y) \cdot \frac{1}{2 \dey} ~ d\eps_y + \int\limits_{\avg{\eps_y} + \dey}^{\avg{\eps_b} - \deb} \alpha E \cdot (\eps - \eps_y) \cdot 0 ~ d\eps_y  \\
+    &= \frac{E}{2 \dey} \int\limits_{\ey - \dey}^{\ey + \dey} \big[(1 - \alpha) E \eps_y + \alpha E \eps \big] ~ d\eps_y  \\
     \notag
-    &= - \frac{\alpha E}{2 \dey} \int\limits_0^{\avg{\eps_y} + \dey} (\eps - \eps_y) ~ d(\eps - \eps_y) \\
+    &= \frac{E}{2 \dey} \Bigg[ \frac{1 - \alpha}{2} {\eps_y}^2 + \alpha \eps \eps_y \Bigg]\limits_{\ey - \dey}^{\ey + \dey} \\
     \notag
-    &= - \frac{\alpha E}{2 \dey} \cdot \frac{(\eps - \eps_y)^2}{2} \bigg|_0^{\avg{\eps_y} + \dey} \\
+    &= \frac{E}{2 \dey} \Bigg[ \frac{1 - \alpha}{2} \bigg[ \big( \ey + \dey \big)^2 - \big( \ey - \dey \big)^2 \bigg] + \alpha \eps 2 \dey \Bigg] \\
     \notag
-    &= - \frac{\alpha E}{4 \dey} \cdot \bigg( \bigl( \eps - (\avg{\eps_y} + \dey)\bigr) ^2 - \eps^2 \bigg) \\
-    \sigma(\eps) &= - \frac{\alpha E}{4 \dey} \cdot \Bigl[ \bigl( \avg{\eps_y} + \dey \bigr)^2 - 2\eps \bigl( \avg{\eps_y} + \dey \bigr) \Bigr]
+    &= \frac{E}{2 \dey} \bigg( \frac{1 - \alpha}{2} \cdot 4 \ey \dey + \alpha \eps 2 \dey \bigg) \\
+    \sigma(\eps) &= E \big[ (1 - \alpha) \ey + \alpha \eps \big]
 \end{align}
 
 %------------------------------------------------------------------------------
@@ -127,17 +135,21 @@ In this interval, some fibers are broken, some still are yielding but no fiber i
 
 \begin{align}
     \notag
-    \sigma(\eps) &= E \eps ( 1 - 1 ) + \bigg[\int\limits_0^\eps \alpha E \cdot (\eps - \eps_y) \cdot p_y(\eps_y) ~ d\eps_y \bigg] \cdot \bigg[ 1 - \frac{\eps - (\avg{\eps_b} - \deb)}{2 \deb} \bigg] \\
+    \sigma(\eps) &= E \eps ( 1 - 1 ) + \Bigg[\int\limits_0^{\ey - \dey} 0 + \int\limits_{\ey - \dey}^{\ey + \dey} \big[(1 - \alpha) E \eps_y + \alpha E \eps \big] \cdot \frac{1}{2 \dey} ~ d\eps_y + \int\limits_{\ey + \dey}^0 0 \Bigg] \cdot \bigg[ 1 - \frac{\eps - \big( \eb - \deb \big)}{2 \deb} \bigg] \\
     \notag
-    &= \bigg[ \int\limits_0^{\avg{\eps_y} + \dey} \alpha E \cdot (\eps - \eps_y) \cdot \frac{1}{2 \dey} ~ d\eps_y + \int\limits_{\avg{\eps_y} + \dey}^\eps \alpha E \cdot (\eps - \eps_y) \cdot 0 ~ d\eps_y \bigg] \cdot \bigg[ 1 - \frac{\eps - (\avg{\eps_b} - \deb)}{2 \deb} \bigg]  \\
+    &= \Bigg[ \frac{E}{2 \dey} \int\limits_{\ey - \dey}^{\ey + \dey} \big[ (1 - \alpha) \eps_y + \alpha \eps \big] ~ d\eps_y \Bigg] \cdot \bigg[ 1 - \frac{\eps - \big( \eb - \deb \big)}{2 \deb} \bigg] \\
     \notag
-    &= - \frac{\alpha E}{4 \dey} \cdot \bigg[ \Bigl( \avg{\eps_y} + \dey \Bigr)^2 - 2\eps \Bigl( \avg{\eps_y} + \dey \Bigr) \bigg] \cdot \bigg[ 1 - \frac{\eps - \avg{\eps_b}}{2 \deb} - \frac{\deb}{2 \deb} \bigg] \\
-    \eps &= - \frac{\alpha E}{4 \dey} \cdot \bigg[ \Bigl( \avg{\eps_y} + \dey \Bigr)^2 - 2\eps \Bigl( \avg{\eps_y} + \dey \Bigr) \bigg] \cdot \bigg( \frac{1}{2} - \frac{\eps - \avg{\eps_b}}{2 \deb} \bigg)
+    &= \frac{E}{2 \dey} \Bigg[ \frac{1 - \alpha}{2} {\eps_y}^2 + \alpha \eps \eps_y \Bigg]\limits_{\ey - \dey}^{\ey + \dey} \cdot \Bigg( 1 - \frac{\eps - \eb}{2 \deb} - \frac{1}{2} \Bigg) \\
+    \notag
+    &= \frac{E}{2 \dey} \Bigg[ \frac{1 - \alpha}{2} \Big( \big( \ey + \dey \big)^2 - \big( \ey - \dey \big)^2 \Big) + \alpha \eps \big( \ey + \dey \big) - \big( \ey - \dey \big) \Bigg] \cdot \Bigg( \frac{1}{2} - \frac{\eps - \eb}{2 \deb} \Bigg) \\
+    \notag
+    &= \frac{E}{2 \dey} \bigg( \frac{1 - \alpha}{2} \cdot 4 \ey \dey + \alpha \eps 2 \dey \bigg) \cdot \Bigg( \frac{1}{2} - \frac{\eps - \eb}{2 \deb} \Bigg) \\
+    \sigma(\eps) &= \frac{E}{2} \Big[ (1 - \alpha) \ey + \alpha \eps \Big] \cdot \Bigg( 1 - \frac{\eps - \eb}{\deb} \Bigg)
 \end{align}
 
 %------------------------------------------------------------------------------
 
-\subsection{For $\avg{\eps_b} + \deb < \eps \leq 1$}
+\subsection{For $\eb + \deb < \eps $}
 
 \indent
 In this interval, all fibers are broken. The stress-strain function is:
@@ -159,17 +171,17 @@ Now, we have the stress-strain function for each interval. We can combine them t
         E \eps 
         & \text{if } 0 \leq \eps < \avg{\eps_y} - \dey \\ \\
         %
-        E \eps \cdot \frac{1}{2} \bigg[ 1 - \frac{\eps - \avg{\eps_y}}{\dey} + \frac{\alpha \eps}{2 \dey} \bigg] 
+        E \eps \Bigg( \frac{1}{2} - \frac{\eps - \ey}{2 \dey} \Bigg) + \frac{E}{2 \dey} \bigg[ \frac{1 + \alpha}{2} \eps^2 - \alpha \big(\ey - \dey \big) \eps - \frac{1 - \alpha}{2} \big(\ey - \dey\big)^2 \bigg] 
         & \text{if } \avg{\eps_y} - \dey \leq \eps \leq \avg{\eps_y} + \dey \\ \\
         %
-        \frac{\alpha E}{4 \dey} \cdot \Bigl[ 2\eps \bigl( \avg{\eps_y} + \dey \bigr) - \bigl( \avg{\eps_y} + \dey \bigr)^2 \Bigr] 
+        E \big[ (1 - \alpha) \ey + \alpha \eps \big]
         & \text{if } \avg{\eps_y} + \dey < \eps < \avg{\eps_b} - \deb \\ \\
         %
-        \frac{\alpha E}{4 \dey} \cdot \bigg[ 2\eps \bigl( \avg{\eps_y} + \dey \bigr) - \Bigl( \avg{\eps_y} + \dey \Bigr)^2 \bigg] \cdot \bigg( \frac{1}{2} - \frac{\eps - \avg{\eps_b}}{2 \deb} \bigg) 
+        \frac{E}{2} \Big[ (1 - \alpha) \ey + \alpha \eps \Big] \cdot \Bigg( 1 - \frac{\eps - \eb}{\deb} \Bigg) 
         & \text{if } \avg{\eps_b} - \deb \leq \eps \leq \avg{\eps_b} + \deb \\ \\
         %
         0 
-        & \text{if } \avg{\eps_b} + \deb < \eps \leq 1
+        & \text{if } \eb + \deb < \eps
     \end{cases}
 \end{equation*}
 
@@ -184,11 +196,5 @@ Using GLE, we can obtain the constitutive relation for fiber bundle model with p
 %     \end{center}
 % \end{figure}
 
-\begin{figure}[h] 
-    \centering\includegraphics[width=3.4in]{constit4.eps}
-    \caption{\label{fig:dust} Inset: mass fraction of non-shattered fragments $S=1-s$ in the final state of the breakup process as a function of strain rate $\dot{\varepsilon}$ for several ring thicknesses $\Delta R/R$. Main panel: Rescaling the curves of the inset by an appropriate power $\nu$ of the ring thickness $\Delta R$, the curves of different $\Delta R$ can be collapsed on a master curve. The black continuous line represents a fit with Eq.\ (\ref{eq:scaling_shatt}). 
-    %Note the semi-logarithmic scale on the vertical axis.
-    }
-\end{figure}
 
 \end{document}

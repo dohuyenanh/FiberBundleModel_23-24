@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.11)  27 SEP 2024 16:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.11)  12 NOV 2024 21:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -113,100 +113,151 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen150
 \Gin@req@width=\dimen151
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/02/19 v1.6 Sub-captions (AR)
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/03/12 v3.6j Customizing captions (AR)
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/03/12 v2.4 caption3 kernel (AR)
+\caption@tempdima=\dimen152
+\captionmargin=\dimen153
+\caption@leftmargin=\dimen154
+\caption@rightmargin=\dimen155
+\caption@width=\dimen156
+\caption@indent=\dimen157
+\caption@parindent=\dimen158
+\caption@hangindent=\dimen159
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count271
+\c@continuedfloat=\count272
+)
+Package caption Info: New subtype `subfigure' on input line 239.
+\c@subfigure=\count273
+Package caption Info: New subtype `subtable' on input line 239.
+\c@subtable=\count274
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count271
+\l__color_backend_stack_int=\count275
 \l__pdf_internal_box=\box53
 ) (./constit4.aux)
 \openout1 = `constit4.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
  (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count272
-\scratchdimen=\dimen152
+\scratchcounter=\count276
+\scratchdimen=\dimen160
 \scratchbox=\box54
-\nofMPsegments=\count273
-\nofMParguments=\count274
+\nofMPsegments=\count277
+\nofMParguments=\count278
 \everyMPshowfont=\toks25
-\MPscratchCnt=\count275
-\MPscratchDim=\dimen153
-\MPnumerator=\count276
-\makeMPintoPDFobject=\count277
+\MPscratchCnt=\count279
+\MPscratchDim=\dimen161
+\MPnumerator=\count280
+\makeMPintoPDFobject=\count281
 \everyMPtoPDFconversion=\toks26
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-)) [1
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+ [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (193.51134pt too wide) detected at line 98
+./constit4.tex:106: Limit controls must follow a math operator.
+<argument> ...\alpha \eps \eps _y \bigg ] \limits 
+                                                  _{\ey - \dey }^\eps \\ \no...
+l.106 \end{align}
+                 
+I'm ignoring this misplaced \limits or \nolimits command.
+
+./constit4.tex:106: Limit controls must follow a math operator.
+<argument> ...\alpha \eps \eps _y \bigg ] \limits 
+                                                  _{\ey - \dey }^\eps \\ \no...
+l.106 \end{align}
+                 
+I'm ignoring this misplaced \limits or \nolimits command.
+
+
+Overfull \hbox (88.18051pt too wide) detected at line 106
+[]
+ []
+
+./constit4.tex:127: Limit controls must follow a math operator.
+<argument> ... \alpha \eps \eps _y \Bigg ]\limits 
+                                                  _{\ey - \dey }^{\ey + \dey...
+l.127 \end{align}
+                 
+I'm ignoring this misplaced \limits or \nolimits command.
+
+./constit4.tex:127: Limit controls must follow a math operator.
+<argument> ... \alpha \eps \eps _y \Bigg ]\limits 
+                                                  _{\ey - \dey }^{\ey + \dey...
+l.127 \end{align}
+                 
+I'm ignoring this misplaced \limits or \nolimits command.
+
+
+Overfull \hbox (82.57877pt too wide) detected at line 127
 []
  []
 
 [2]
-Overfull \hbox (85.34209pt too wide) detected at line 136
+./constit4.tex:148: Limit controls must follow a math operator.
+<argument> ... \alpha \eps \eps _y \Bigg ]\limits 
+                                                  _{\ey - \dey }^{\ey + \dey...
+l.148 \end{align}
+                 
+I'm ignoring this misplaced \limits or \nolimits command.
+
+./constit4.tex:148: Limit controls must follow a math operator.
+<argument> ... \alpha \eps \eps _y \Bigg ]\limits 
+                                                  _{\ey - \dey }^{\ey + \dey...
+l.148 \end{align}
+                 
+I'm ignoring this misplaced \limits or \nolimits command.
+
+
+Overfull \hbox (148.94598pt too wide) detected at line 148
 []
  []
 
 [3]
-Overfull \hbox (47.06995pt too wide) detected at line 174
+Overfull \hbox (114.83237pt too wide) detected at line 186
 | \OML/cmm/m/it/10 ^^[\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 "\OT1/cmr/m/n/10 ) = []
  []
 
-Package epstopdf Info: Source file: <constit4.eps>
-(epstopdf)                    date: 2024-09-27 15:44:25
-(epstopdf)                    size: 29873 bytes
-(epstopdf)             Output file: <constit4-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-09-27 16:07:38
-(epstopdf)                    size: 11208 bytes
-(epstopdf)             Command: <repstopdf --outfile=constit4-eps-converted-to.pdf constit4.eps>
-(epstopdf)             \includegraphics on input line 188.
-Package epstopdf Info: Output file is already uptodate.
-<constit4-eps-converted-to.pdf, id=27, 514.92375pt x 344.28625pt>
-File: constit4-eps-converted-to.pdf Graphic file (type pdf)
-<use constit4-eps-converted-to.pdf>
-Package pdftex.def Info: constit4-eps-converted-to.pdf  used on input line 188.
-(pdftex.def)             Requested size: 245.71754pt x 164.2889pt.
-
-LaTeX Warning: Reference `eq:scaling_shatt' on page 4 undefined on input line 191.
-
-
-LaTeX Warning: Reference `eq:scaling_shatt' on page 4 undefined on input line 191.
-
-[4 <./constit4-eps-converted-to.pdf>] (./constit4.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[4] (./constit4.aux) ) 
 Here is how much of TeX's memory you used:
- 2577 strings out of 476025
- 46434 string characters out of 5790017
- 1868388 words of memory out of 5000000
- 23029 multiletter control sequences out of 15000+600000
- 517670 words of font info for 51 fonts, out of 8000000 for 9000
+ 4023 strings out of 476025
+ 74384 string characters out of 5790017
+ 1874388 words of memory out of 5000000
+ 24468 multiletter control sequences out of 15000+600000
+ 517362 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,12n,62p,595b,275s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on constit4.pdf (4 pages, 190501 bytes).
+ 67i,13n,77p,486b,196s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on constit4.pdf (4 pages, 170933 bytes).
 PDF statistics:
- 104 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

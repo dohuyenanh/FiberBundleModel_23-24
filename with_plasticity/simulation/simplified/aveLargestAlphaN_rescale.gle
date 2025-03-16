@@ -1,0 +1,47 @@
+size 14 12
+
+a=0.667
+N1=1000
+N2=10000
+N3=100000
+
+xc=0.0536
+b=0.251
+
+amove 1 1
+begin graph
+  size 14 12
+
+  data "aveParamAlpha_1000.txt" d1=c1,c3
+  let d11 = (x-xc)*(N1^b), d1/(N1^a)
+  data "aveParamAlpha_10000.txt" d2=c1,c3
+  let d12 = (x-xc)*(N2^b), d2/(N2^a)
+  data "aveParamAlpha_100000.txt" d3=c1,c3
+  let d13 = (x-xc)*(N3^b), d3/(N3^a)
+
+
+  d11 line marker circle color red
+  d12 line marker triangle color blue 
+  d13 line marker square color green 
+
+  xaxis max 2 min -0.5 !log
+  yaxis dticks 0.1
+
+  xlabels hei 0.7 dist 0.1
+  ylabels hei 0.7 dist 0.1
+
+  xtitle "(\alpha-\alpha_c)N^{1/\nu}" hei 0.9 dist 0.15
+  ytitle "<\Delta_{max}>/N^{\gamma/\nu}" hei 0.9 dist 0.15
+
+end graph
+
+begin key
+  nobox
+  hei 0.7
+  position tr
+  offset 0.2 2
+  compact
+  text "N=1000" line marker circle color red
+  text "N=10000" line marker triangle color blue 
+  text "N=100000" line marker square color green 
+end key

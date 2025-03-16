@@ -1,0 +1,45 @@
+size 18 14
+
+a = 3.1 ! sigma_c when N = 100000 at alpha = 1
+
+amove 1 1
+begin graph
+  size 18 14
+  !title "Average Largest Stress" hei 0.6 dist 0.3
+  
+  data "aveParamAlpha_1000.txt" d1=c1,c5
+  let d1 = x, d1/a
+  d1 line marker circle color red 
+
+  data "aveParamAlpha_10000.txt" d2=c1,c5
+  let d2 = x, d2/a
+  d2 line marker triangle color blue 
+
+  data "aveParamAlpha_100000.txt" d3=c1,c5
+  let d3 = x, d3/a
+  d3 line marker square color green 
+
+  !let d2=0.007*x^-0.92
+  !d2 line color blue lwidth 0.05
+
+  xlabels hei 0.7 dist 0.25
+  ylabels hei 0.7 dist 0.25
+
+  xtitle "\alpha" hei 1 dist 0.5  
+  ytitle "<\sigma_c> / <\sigma_c>(\alpha=1)" hei 1 dist 0.5
+
+  xaxis log
+  !yaxis log
+
+end graph
+
+begin key
+    hei 0.7  
+    nobox
+    compact 
+    position tl 
+    offset 0.1 0.1
+    text "N = 1000" line marker circle color red 
+    text "N = 10000" line marker triangle color blue 
+    text "N = 100000" line marker square color green 
+end key

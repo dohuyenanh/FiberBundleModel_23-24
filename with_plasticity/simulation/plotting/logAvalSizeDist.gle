@@ -1,0 +1,35 @@
+size 18 14
+
+amove 1 1
+begin graph
+	size 18 14
+	data "../data/results_1/logAvalSizeDist0p2.txt" d1=c1,c2
+	!title "Avalanche Size Distribution (logarithmic binning)" hei 0.7 dist 0.35
+	d1 line color red marker circle
+	
+	xaxis log !logn1 
+	yaxis log
+
+        xtitle "\Delta" hei 1 dist 0.5
+        ytitle "p(\Delta)" hei 1 dist 0.5
+
+        xlabels log n1 hei 0.7 dist 0.25
+        ylabels hei 0.7 dist 0.25
+
+    xsticks length 0.2
+    ysticks length 0.2
+        
+   let d2 = 5000000*x^-2.4 from 1 to 4000
+   d2 line color blue lwidth 0.05
+
+end graph
+
+begin key
+    hei 0.65
+    nobox
+    compact 
+    position tr 
+    offset 0.2 0.2
+    text "5 \cdot 10^6 x^{-2.4}" line color blue lwidth 0.05
+    text "simulation data" line color red marker circle
+end key

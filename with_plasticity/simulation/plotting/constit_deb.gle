@@ -1,0 +1,31 @@
+size 18 14
+
+amove 1 1
+begin graph
+  size 18 14
+  !title "Constitutive Relation with Varying \Delta \epsilon_b" hei 0.6 dist 0.3
+  
+  d1 bigfile "../data/constit(de_b-1).txt, 1, 2" line color red 
+  d2 bigfile "../data/constit(de_b-2).txt, 1, 2" line color green 
+  d3 bigfile "../data/constit(de_b-3).txt, 1, 2" line color blue 
+  !d4 bigfile "../data/constit(de_b-4).txt, 1, 2" line color orange 
+
+  xlabels hei 0.7 dist 0.25
+  ylabels hei 0.7 dist 0.25
+
+  xtitle "\varepsilon" hei 1 dist 0.5
+  ytitle "\sigma" hei 1 dist 0.5
+
+end graph
+
+begin key
+    hei 0.6
+    nobox
+    compact 
+    position tr 
+    offset 0.2 0.2
+    text "\Delta \varepsilon_{b_1} = 4.5" line color red line color red
+    text "\Delta \varepsilon_{b_2} = 4.0" line color red line color green
+    text "\Delta \varepsilon_{b_3} = 3.5" line color red line color blue
+    !text "\Delta \varepsilon_{b_4}" line color red line color orange
+end key

@@ -27,7 +27,6 @@ b1 = e_y - de_y     !start yielding
 b2 = e_y + de_y     !stop intact
 b3 = e_b - de_b     !start breaking
 b4 = e_b + de_b     !every fiber is broken
-
 """
 
 # Parse command line arguments

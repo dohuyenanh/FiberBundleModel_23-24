@@ -84,7 +84,7 @@ int main()
         {
             i++; // first round: i=0
             if (i != 0)
-            {
+            { 
                 wait = strength[i] - sigma; // strength is always between 0 and 1
                 wait = floor(wait * N);     // to distinguish between different wait time
                 wait_dist[(int)wait]++;     // frequency of a waiting time
