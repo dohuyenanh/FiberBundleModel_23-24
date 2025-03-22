@@ -348,7 +348,7 @@ double uniform()
     return (double)rand() / (double)RAND_MAX;
 }
 
-double weibull(double m, double lambda)
+double weibull(double m, double lambda) 
 {
     double x, r;
     r = (double)rand() / (double)RAND_MAX;

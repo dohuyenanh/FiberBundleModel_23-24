@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include<time.h>
+#include <time.h>
 
 #define N 10000
 #define K 1000
@@ -44,7 +44,7 @@ int main()
     double aveNoOfAvalanches = 0; // average number of avalanches
     double aveSigmaC = 0;         // average largest stress where catastrophic avalanche does not occur after that
     double aveEpsC = 0;           // average largest strain where catastrophic avalanche does not occur after that
-    double s_i, s_j, TotDamage, aveTotDamage = 0.0, aveTotAvalSize = 0.0, TotAvalSize;
+    double s_i, s_j, TotDamage, aveTotDamage = 0.0, aveTotAvalSize = 0.0, TotAvalSize;  // note: what are these new variables?
     int i_avalstart;
     char filename[50];     // name of the output file
     int avalSize, subAval; // avalanche size and sub-avalanche size
@@ -67,12 +67,12 @@ int main()
     linAvalSizeDistFile = fopen(filename, "w");
     snprintf(filename, sizeof(filename), "logAvalSizeDist_%d_%dp%04d.txt", N, intpart, fracpart);
     logAvalSizeDistFile = fopen(filename, "w");
-    
-    srand(time(NULL)); 
+
+    srand(time(NULL));  // note: why is this needed?
 
     for (k = 0; k < K; k++)
     {
-        //printf("%d\n", k);
+        // printf("%d\n", k);
         uniform(yielding, e_y, de_y, N);
         uniform(broken, e_b, de_b, N);
 
@@ -211,10 +211,11 @@ int main()
         //         epsC[k] = broken[i];
         //     }
         // }
-        //printf("sigmaC[%d]: %lf\n", k, sigmaC[k]);
-        //printf("maxAval[%d]: %d\n", k, maxAval[k]);
+        // printf("sigmaC[%d]: %lf\n", k, sigmaC[k]);
+        // printf("maxAval[%d]: %d\n", k, maxAval[k]);
         aveTotDamage += TotDamage;
-        if (noOfAvalanches[k] > 0) aveTotAvalSize += TotAvalSize/noOfAvalanches[k];
+        if (noOfAvalanches[k] > 0)
+            aveTotAvalSize += TotAvalSize / noOfAvalanches[k];
         catasAval[k] = avalSize;
         // if(catasAval[k] == maxAval[k])
         //     maxAval[k] = 0;
