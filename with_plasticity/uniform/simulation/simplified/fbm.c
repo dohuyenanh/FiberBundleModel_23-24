@@ -3,8 +3,8 @@
 #include <string.h>
 #include <math.h>
 
-#define N 1000
-#define K 100
+#define N 10000
+#define K 10
 #define E 1.0
 #define alpha 0.0048
 #define e_y 0.45

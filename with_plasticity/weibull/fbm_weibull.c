@@ -8,17 +8,18 @@
 #define K 1
 #define M_YIELD 5.0
 #define L_YIELD 1.0
-#define M_BREAK 10
-#define L_BREAK 1.0
+#define M_BREAK 15.0
+#define L_BREAK 3.0
 #define E 1.0
 #define alpha 0.2
 #define binAval 40 // number of bins for avalanche size distribution (log)
 
 typedef struct
 {
-    double yield;         // yielding threshold of the fiber
-    double broken;        // breaking threshold of the fiber
+    unsigned int id;      // fiber ID: the i-th and (i+N)-th elements are the same fiber
+    double threshold;     // threshold of the fiber (yielding or breaking): if id = i then threshold = yielding threshold, if id = i+N then threshold = breaking threshold
     unsigned int plastic; // if the fiber has e_y < e_b then plastic = 1, otherwise plastic = 0
+    unsigned int broken;  // if the fiber is already broken then broken = 1, otherwise broken = 0
 } FIBER;
 
 double yielding[N];     // yielding thresholds of fibers
@@ -30,31 +31,32 @@ int linAvalSizeDist[N]; // avalanche size distribution (linear binning)
 int logAvalSizeDist[N]; // avalanche size distribution (log binning)
 int catasAval[K];       // catastrophic avalanches
 int maxAval[K];         // largest avalanche size (excluding catastrophic) in each bundle
-int noOfAvalanches[K]; // number of avalanches
-FIBER bundle[N];       // bundle of fibers
+int noOfAvalanches[K];  // number of avalanches
+FIBER bundle[2 * N];    // bundle of fibers
 int i, j, k;            // counters
 
 double rand01();
 int CmpFunc(const void *_a, const void *_b);
-int CmpFuncFiber(const void *_a, const void *_b);
+int CmpFiberFunc(const void *_a, const void *_b);
 void uniform(double array[], double mean, double radius, int sizeOfArray);
 // initialize and sort arrays of uniform distribution
 double weibull(double m, double lambda);
 // generate Weibull distribution
 void loga_bin(int num_bins, int max, int min, int *array_pointer, FILE *file_pointer); // logarithmic binning
-void init_bundle(FIBER array[]);     // initialize the bundle of fibers
+void init_bundle(FIBER array[]);                                                       // initialize the bundle of fibers
 
 int main()
 {
-    double aveMaxAval = 0;      // average size of the largest avalanches
-    double aveCatasAval = 0;    // average size of the catastrophic avalanches
-    double aveNoOfAvalanches = 0;          // average number of avalanches
-    double aveSigmaC = 0;    // average largest stress where catastrophic avalanche does not occur after that
-    double aveEpsC = 0;      // average largest strain where catastrophic avalanche does not occur after that
-    double s_i, s_j, TotDamage, aveTotDamage = 0.0, aveTotAvalSize = 0.0, TotAvalSize; 
+    double aveMaxAval = 0;        // average size of the largest avalanches
+    double aveCatasAval = 0;      // average size of the catastrophic avalanches
+    double aveNoOfAvalanches = 0; // average number of avalanches
+    double aveSigmaC = 0;         // average largest stress where catastrophic avalanche does not occur after that
+    double aveEpsC = 0;           // average largest strain where catastrophic avalanche does not occur after that
+    double s_i, s_j, TotDamage, aveTotDamage = 0.0, aveTotAvalSize = 0.0, TotAvalSize;
     int i_avalstart;
     char filename[50];     // name of the output file
     int avalSize, subAval; // avalanche size and sub-avalanche size
+    int i_sigma;           // counter for the s[N] array
 
     // Initialize the arrays
     memset(linAvalSizeDist, 0, N * sizeof(int));
@@ -75,7 +77,7 @@ int main()
     snprintf(filename, sizeof(filename), "logAvalSizeDist_%d_%dp%04d.txt", N, intpart, fracpart);
     logAvalSizeDistFile = fopen(filename, "w");
 
-    srand(time(NULL)); 
+    srand(time(NULL));
 
     for (k = 0; k < K; k++)
     {
@@ -83,32 +85,82 @@ int main()
         init_bundle(bundle);
 
         // attention: Constitutive Relation
-        double eps;   // strain of the whole bundle
-        double force; // force on the whole bundle
-        double sigma; // stress of the whole bundle
-        int n;    // number of intact fibers
+        double eps;    // strain of the whole bundle
+        double force;  // force on the whole bundle
+        double sigma;  // stress of the whole bundle
+        int intact;    // number of intact fibers
+        int noOfYield; // number of yielding fibers
 
-        for (i = 0; i < N; i++)
+        i = 0;
+        i_sigma = 0;
+        while (i < (2 * N))
         {
-            n = N;
+            intact = N;
+            noOfYield = 0;
             force = 0.0;
 
-            if (bundle[i].plastic == 1)
-                eps = bundle[i].yield; // let strain jump to the smallest yielding threshold
-            else
-                eps = bundle[i].broken; // let strain jump to the smallest breaking threshold
+            while (bundle[i].broken == 1)
+            {
+                i++;
+            }
+
+            eps = bundle[i].threshold; // let strain jump to the smallest yielding/breaking threshold
 
             for (j = 0; j < i; j++)
             {
-                if(bundle[j].plastic == 1)
-                    force += E * bundle[j].yield + alpha * E * (eps - bundle[j].yield); // force on yielding fibers
-                else
-                    n -= 1; // decrease since since j-th fiber is broken
+                if (bundle[j].broken == 0 && bundle[j].plastic == 1)
+                {
+                    force += E * bundle[j].threshold + alpha * E * (eps - bundle[j].threshold); // force on yielding fibers
+                    noOfYield++;
+                }
+                else if (bundle[j].broken == 1)
+                {
+                    if (bundle[j].plastic == 1 && bundle[j].id < N)
+                        intact -= 1;
+                    // bundle[j].id < N is used to avoid double counting the broken fibers hence bundle[j].id >= N will do the same trick
+                    else if (bundle[j].plastic == 0 && bundle[j].id >= N)
+                        intact -= 1;
+                }
             }
-
-            force += E * eps * (N-i); // force on fibers still elastic
-            sigma = force / n;
-            s[i] = sigma;
+            force += E * eps * (intact - noOfYield); // force on fibers still elastic
+            if(intact == 0)
+            {
+                sigma = 0;
+                break;
+            }
+            else
+                sigma = force / intact;
+            s[i_sigma] = sigma;
+            if (bundle[i].plastic == 1 && bundle[i].id >= N)
+            {
+                bundle[i].broken = 1;
+                j = 0;
+                while (j < i) // switch its pair element to be broken too
+                {
+                    if (bundle[i].id == (bundle[j].id + N)) // finding its pair
+                    {
+                        bundle[j].broken = 1;
+                        break;
+                    }
+                    j++;
+                }
+            }
+            else if (bundle[i].plastic == 0 && bundle[i].id >= N)
+            {
+                bundle[i].broken = 1;
+                j = i + 1;
+                while (j < (2 * N))
+                {
+                    if (bundle[i].id == (bundle[j].id + N)) // finding its pair
+                    {
+                        bundle[j].broken = 1;
+                        break;
+                    }
+                    j++;
+                }
+            }
+            i++;
+            i_sigma++;
             if (K == 1)
                 fprintf(constit, "%lf\t%lf\n", eps, sigma);
         }
@@ -157,47 +209,47 @@ int main()
         //     maxAval[k] = 0;
     } // attention: end of K loop
 
-/*     // attention: Parameters dependent on alpha
-    i = 0; // to exclude maxAval = catasAval, i.e., catastrophic avalanche happens at the start
-    for (k = 0; k < K; k++)
-    {
-        aveCatasAval += catasAval[k];
-        aveNoOfAvalanches += noOfAvalanches[k];
-        aveSigmaC += sigmaC[k];
-        aveEpsC += epsC[k];
-        if (maxAval[k] > 0)
+    /*     // attention: Parameters dependent on alpha
+        i = 0; // to exclude maxAval = catasAval, i.e., catastrophic avalanche happens at the start
+        for (k = 0; k < K; k++)
         {
-            aveMaxAval += maxAval[k];
-            i++;
+            aveCatasAval += catasAval[k];
+            aveNoOfAvalanches += noOfAvalanches[k];
+            aveSigmaC += sigmaC[k];
+            aveEpsC += epsC[k];
+            if (maxAval[k] > 0)
+            {
+                aveMaxAval += maxAval[k];
+                i++;
+            }
         }
-    }
-    aveTotDamage /= K;
-    aveTotAvalSize /= K;
-    aveCatasAval /= K;
-    if (i == 0)
-        aveMaxAval = 0;
-    else
-        aveMaxAval /= i;
-    aveNoOfAvalanches /= K;
-    aveSigmaC /= K;
-    aveEpsC /= K;
+        aveTotDamage /= K;
+        aveTotAvalSize /= K;
+        aveCatasAval /= K;
+        if (i == 0)
+            aveMaxAval = 0;
+        else
+            aveMaxAval /= i;
+        aveNoOfAvalanches /= K;
+        aveSigmaC /= K;
+        aveEpsC /= K;
 
-    printf("Average size of catastrophic avalanches: %lf\n", aveCatasAval);
-    printf("Average size of the largest avalanches: %lf\n", aveMaxAval);
-    printf("Average number of avalanches: %lf\n", aveNoOfAvalanches);
-    printf("Average largest stress where catastrophic avalanche does not occur after that: %lf\n", aveSigmaC);
-    printf("Average largest strain where catastrophic avalanche does not occur after that: %lf\n", aveEpsC);
+        printf("Average size of catastrophic avalanches: %lf\n", aveCatasAval);
+        printf("Average size of the largest avalanches: %lf\n", aveMaxAval);
+        printf("Average number of avalanches: %lf\n", aveNoOfAvalanches);
+        printf("Average largest stress where catastrophic avalanche does not occur after that: %lf\n", aveSigmaC);
+        printf("Average largest strain where catastrophic avalanche does not occur after that: %lf\n", aveEpsC);
 
-    fprintf(aveParamAlpha, "%f\t%lf\t%lf\t%lf\t%lf\t%lf\t%lf\t%lf\n", alpha, aveCatasAval, aveMaxAval, aveNoOfAvalanches, aveSigmaC, aveEpsC, aveTotDamage, aveTotAvalSize);
+        fprintf(aveParamAlpha, "%f\t%lf\t%lf\t%lf\t%lf\t%lf\t%lf\t%lf\n", alpha, aveCatasAval, aveMaxAval, aveNoOfAvalanches, aveSigmaC, aveEpsC, aveTotDamage, aveTotAvalSize);
 
-    // attention: Output the linear and logarithmic avalanche size distributions
-    for (i = 0; i < N; i++)
-    {
-        if (linAvalSizeDist[i] > 0)
-            fprintf(linAvalSizeDistFile, "%d\t%d\n", i, linAvalSizeDist[i]);
-    }
-    loga_bin(binAval, N, 1, linAvalSizeDist, logAvalSizeDistFile);
- */
+        // attention: Output the linear and logarithmic avalanche size distributions
+        for (i = 0; i < N; i++)
+        {
+            if (linAvalSizeDist[i] > 0)
+                fprintf(linAvalSizeDistFile, "%d\t%d\n", i, linAvalSizeDist[i]);
+        }
+        loga_bin(binAval, N, 1, linAvalSizeDist, logAvalSizeDistFile);
+     */
     fclose(constit);
     fclose(linAvalSizeDistFile);
     fclose(logAvalSizeDistFile);
@@ -246,10 +298,10 @@ void uniform(double array[], double mean, double radius, int sizeOfArray)
 
 double weibull(double m, double lambda)
 {
-        double x, r;
-        r = rand01();
-        x = pow(pow(lambda, m) * (-log(1.0 - r)), 1.0 / m);
-        return x;
+    double x, r;
+    r = rand01();
+    x = pow(pow(lambda, m) * (-log(1.0 - r)), 1.0 / m);
+    return x;
 }
 
 double rand01()
@@ -270,32 +322,37 @@ int CmpFunc(const void *_a, const void *_b)
         return -1; // second item is bigger than the first one -> return -1
 }
 
-void init_bundle(FIBER array[])
+void init_bundle(FIBER fiber_array[])
 {
     for (int i = 0; i < N; i++)
     {
-        array[i].yield = weibull(M_YIELD, L_YIELD);
-        array[i].broken = weibull(M_BREAK, L_BREAK);
-        if (array[i].yield < array[i].broken)
-            array[i].plastic = 1;
+        fiber_array[i].id = i;
+        fiber_array[i].broken = 0; // at first, no fiber is broken
+        fiber_array[i].threshold = weibull(M_YIELD, L_YIELD);
+        fiber_array[i + N].threshold = weibull(M_BREAK, L_BREAK);
+        if (fiber_array[i].threshold < fiber_array[i + N].threshold)
+        {
+            fiber_array[i].plastic = 1;
+            fiber_array[i + N].plastic = 1;
+        }
         else
-            array[i].plastic = 0;
+        {
+            fiber_array[i].plastic = 0;
+            fiber_array[i + N].plastic = 0;
+        }
     }
-
-    qsort(array, N, sizeof(FIBER), CmpFuncFiber);
+    qsort(fiber_array, 2 * N, sizeof(FIBER), CmpFiberFunc);
 }
 
-int CmpFuncFiber(const void *a, const void *b)
+int CmpFiberFunc(const void *a, const void *b)
 {
     FIBER *fiberA = (FIBER *)a;
     FIBER *fiberB = (FIBER *)b;
-    double minA = (fiberA->yield < fiberA->broken) ? fiberA->yield : fiberA->broken;
-    double minB = (fiberB->yield < fiberB->broken) ? fiberB->yield : fiberB->broken;
 
-    if (minA > minB)
+    if (fiberA->threshold > fiberB->threshold)
         return 1;
-    else if (minA == minB)
-        return 0;
-    else
+    else if (fiberA->threshold < fiberB->threshold)
         return -1;
+    else
+        return 0;
 }
